@@ -1,9 +1,9 @@
 
-#' Prediction of Dynamic Microbial Inactivation
+#' Prediction of Dynamic Inactivation
 #'
-#' Predicts the inactivation of a microorganism for dynamic temperature
-#' conditions. The characteristics of the microorganism are defined by
-#' the model parameters defined.
+#' Predicts the inactivation of a microorganism under isothermal or
+#' non-isothermal temperature conditions. The thermal resistence of
+#' the microorganism are defined with the input arguments.
 #'
 #' The value of the temperature is calculated at each value of time by
 #' linear interpolation of the values provided by the input argument
@@ -15,7 +15,12 @@
 #' @param times numeric vector of output times.
 #' @param parms list of parameters defining the parameters of the model.
 #' @param temp_profile data frame with discrete values of the temperature for
-#'        each time.
+#'        each time. It must have one column named \code{time} and another named
+#'        \code{temperature} providing discrete values of the temperature at
+#'        time points.
+#' @param tol0 numeric. Observations at time 0 make Weibull-based models singular.
+#'        The time for observatins taken at time 0 are changed for this value.
+#'        By default (`tol0 = 1e-5`)
 #'
 #' @importFrom deSolve ode
 #' @importFrom dplyr mutate_
@@ -27,18 +32,23 @@
 #'           \item model: character defining the model use for the prediction.
 #'           \item model_parameters: named numeric vector with the values of
 #'                                   the model parameters used.
-#'           \item temp_approximation: function used for the interpolation of
-#'                                     the temperature. For a numeric value of
-#'                                     time given, returns the value of the
-#'                                     temperature.
-#'           \item simulation: A data frame with the results calculated. It
-#'                             includes 4 columns: time, logN, N, logS and S.
+#'           \item temp_approximations: function used for the interpolation of
+#'                                      the temperature. For a numeric value of
+#'                                      time given, returns the value of the
+#'                                      temperature and its first derivative.
+#'           \item simulation: A data frame with the results calculated. Its
+#'                             first column contains the times at which the
+#'                             solution has been calculated. The following
+#'                             columns the values of the variables of the
+#'                             model. The three last columns provide the
+#'                             values of \code{logN}, \code{S} and
+#'                             \code{logS}.
 #'           }
 #'
 #'
 #' @export
 #'
-#' @seealso \code{\link{ode}}
+#' @seealso \code{\link{ode}}, \code{\link{get_model_data}}
 #'
 #' @examples
 #' ## EXAMPLE 1 -----------
@@ -75,11 +85,15 @@
 #'
 #' ## END EXAMPLE 1 -----------
 #'
-predict_inactivation <- function(simulation_model, times, parms, temp_profile){
+predict_inactivation <- function(simulation_model, times, parms, temp_profile, tol0 = 1e-5){
 
     #- Check of the model parameters
 
     check_model_params(simulation_model, c(), parms, TRUE)
+
+    #- Remove 0 values of times
+
+    times[times < tol0] <- tol0
 
     #- Gather the information
 

@@ -14,11 +14,11 @@
 #'          }
 #' @param starting_point List with the initial values of the parameters
 #'        for the adjustment.
+#' @param known_params List of the parameters of the model known.
 #' @param adjust_log logical. If \code{TRUE}, the adjustment is based on the
 #'        minimization of the error of the logarithmic microbial count. If
 #'        \code{FALSE}, it is based on the minimization of the error of the
-#'        microbial count.
-#' @param known_params List of the parameters of the model known.
+#'        microbial count. \code{TRUE} by default.
 #'
 #' @return An instance of class \code{IsoFitInactivation} with the results.
 #'         This list has four entries:
@@ -57,7 +57,7 @@
 #' ## Call the fitting function
 #' iso_fit <- fit_isothermal_inactivation(model_name,
 #'                                        isothermal_inactivation, starting_point,
-#'                                        adjust_log, known_params)
+#'                                        known_params)
 #'
 #' ## Output of the results
 #'
@@ -66,7 +66,7 @@
 #' ## END EXAMPLE 1 --------
 #'
 fit_isothermal_inactivation <- function(model_name, death_data, starting_point,
-                                        adjust_log, known_params) {
+                                        known_params, adjust_log = TRUE) {
 
     #- Check of the model parameters
 

@@ -5,7 +5,8 @@
 \title{Fitting of Dynamic Inactivation Models}
 \usage{
 fit_dynamic_inactivation(experiment_data, simulation_model, temp_profile,
-  starting_points, upper_bounds, lower_bounds, known_params, minimize_log)
+  starting_points, upper_bounds, lower_bounds, known_params, ...,
+  minimize_log = TRUE, tol0 = 1e-05)
 }
 \arguments{
 \item{experiment_data}{data frame with the experimental data to be adjusted.
@@ -15,7 +16,9 @@ It must have a column named \dQuote{time} and another one named
 \item{simulation_model}{character identifying the model to be used.}
 
 \item{temp_profile}{data frame with discrete values of the temperature for
-each time.}
+each time. It must have one column named \code{time} and another named
+\code{temperature} providing discrete values of the temperature at
+time points.}
 
 \item{starting_points}{starting values of the parameters for the adjustment.}
 
@@ -28,15 +31,22 @@ parameters for the adjustment.}
 \item{known_params}{named numerical vector with the fixed (i.e., not
 adjustable) model parameters.}
 
+\item{...}{further arguments passed to \code{\link{modFit}}}
+
 \item{minimize_log}{logical. If \code{TRUE}, the adjustment is based on the
-       minimization of the error of the logarithmic count.}
+minimization of the error of the logarithmic count. \code{TRUE} by
+default.}
+
+\item{tol0}{numeric. Observations at time 0 make Weibull-based models singular.
+The time for observatins taken at time 0 are changed for this value.}
 }
 \value{
 A list of class \code{FitInactivation} with the following items:
      \itemize{
-         \item fit_results: a list of class \code{modFit}.
+         \item fit_results: a list of class \code{modFit} with the info
+               of the adjustment.
          \item best_prediction: a list of class \code{SimulInactivation}
-               with the results.
+               with prediction made by the adjusted model.
          \item data: a data frame with the data used for the fitting.
          }
 }
@@ -68,12 +78,10 @@ starting_points <- c(n = 1, k_b = 0.25, N0 = 1e+05)
 upper_bounds <- c(n = 2, k_b = 1, N0 = Inf)
 lower_bounds <- c(n = 0, k_b = 0, N0 = 1e4)
 
-minimize_log = TRUE
-
 dynamic_fit <- fit_dynamic_inactivation(dynamic_inactivation, simulation_model,
                                         dummy_temp, starting_points,
                                         upper_bounds, lower_bounds,
-                                        known_params, minimize_log)
+                                        known_params)
 
 plot(dynamic_fit)
 

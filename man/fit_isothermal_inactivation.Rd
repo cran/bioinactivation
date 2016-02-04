@@ -4,8 +4,8 @@
 \alias{fit_isothermal_inactivation}
 \title{Fit of Isothermal Experiments}
 \usage{
-fit_isothermal_inactivation(model_name, death_data, starting_point, adjust_log,
-  known_params)
+fit_isothermal_inactivation(model_name, death_data, starting_point,
+  known_params, adjust_log = TRUE)
 }
 \arguments{
 \item{model_name}{character specyfing the model to adjust.}
@@ -21,12 +21,12 @@ observation. It must have the following columns:
 \item{starting_point}{List with the initial values of the parameters
 for the adjustment.}
 
-\item{adjust_log}{logical. If \code{TRUE}, the adjustment is based on the
-minimization of the error of the logarithmic microbial count. If
-\code{FALSE}, it is based on the minimization of the error of the
-microbial count.}
-
 \item{known_params}{List of the parameters of the model known.}
+
+\item{adjust_log}{logical. If \code{TRUE}, the adjustment is based on the
+       minimization of the error of the logarithmic microbial count. If
+       \code{FALSE}, it is based on the minimization of the error of the
+       microbial count. \code{TRUE} by default.}
 }
 \value{
 An instance of class \code{IsoFitInactivation} with the results.
@@ -64,7 +64,7 @@ adjust_log <- TRUE
 ## Call the fitting function
 iso_fit <- fit_isothermal_inactivation(model_name,
                                        isothermal_inactivation, starting_point,
-                                       adjust_log, known_params)
+                                       known_params)
 
 ## Output of the results
 

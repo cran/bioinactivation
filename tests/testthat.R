@@ -1,3 +1,4 @@
+
 library(testthat)
 library(bioinactivation)
 
@@ -17,8 +18,8 @@ test_that("Prediction Bigelow", {
                                             parms, temp_profile)
 
 
-    expect_equal(bigelow_results$simulation$logN[1], 5)
-    expect_equal(bigelow_results$simulation$logS[100], -4, tolerance = 1e-6)
+    expect_equal(bigelow_results$simulation$logN[1], 5, tolerance = 1e-4)
+    expect_equal(bigelow_results$simulation$logS[100], -4, tolerance = 1e-4)
 })
 
 #------------------------------------------------------------------------------
@@ -34,7 +35,7 @@ test_that("Prediction Peleg", {
     peleg_results <- predict_inactivation(simulation_model, times,
                                           parms, temp_profile)
 
-    expect_equal(peleg_results$simulation$logN[1], 5, tolerance = 1e-6)
+    expect_equal(peleg_results$simulation$logN[1], 5, tolerance = 1e-4)
     expect_equal(peleg_results$simulation$logS[100], -3.9, tolerance = 1e-4)
 })
 
@@ -51,7 +52,7 @@ test_that("Prediction Mafart", {
     mafart_results <- predict_inactivation(simulation_model, times,
                                            parms, temp_profile)
 
-    expect_equal(mafart_results$simulation$logN[1], 5, tolerance = 1e-6)
+    expect_equal(mafart_results$simulation$logN[1], 5, tolerance = 1e-4)
     expect_equal(mafart_results$simulation$logS[100], -4, tolerance = 1e-4)
 })
 

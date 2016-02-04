@@ -2,9 +2,10 @@
 % Please edit documentation in R/make_predictions.R
 \name{predict_inactivation}
 \alias{predict_inactivation}
-\title{Prediction of Dynamic Microbial Inactivation}
+\title{Prediction of Dynamic Inactivation}
 \usage{
-predict_inactivation(simulation_model, times, parms, temp_profile)
+predict_inactivation(simulation_model, times, parms, temp_profile,
+  tol0 = 1e-05)
 }
 \arguments{
 \item{simulation_model}{character identifying the model to be used.}
@@ -14,7 +15,13 @@ predict_inactivation(simulation_model, times, parms, temp_profile)
 \item{parms}{list of parameters defining the parameters of the model.}
 
 \item{temp_profile}{data frame with discrete values of the temperature for
-       each time.}
+each time. It must have one column named \code{time} and another named
+\code{temperature} providing discrete values of the temperature at
+time points.}
+
+\item{tol0}{numeric. Observations at time 0 make Weibull-based models singular.
+       The time for observatins taken at time 0 are changed for this value.
+       By default (`tol0 = 1e-5`)}
 }
 \value{
 A list of class \code{SimulInactivation} with the results. It has
@@ -23,18 +30,23 @@ A list of class \code{SimulInactivation} with the results. It has
           \item model: character defining the model use for the prediction.
           \item model_parameters: named numeric vector with the values of
                                   the model parameters used.
-          \item temp_approximation: function used for the interpolation of
-                                    the temperature. For a numeric value of
-                                    time given, returns the value of the
-                                    temperature.
-          \item simulation: A data frame with the results calculated. It
-                            includes 4 columns: time, logN, N, logS and S.
+          \item temp_approximations: function used for the interpolation of
+                                     the temperature. For a numeric value of
+                                     time given, returns the value of the
+                                     temperature and its first derivative.
+          \item simulation: A data frame with the results calculated. Its
+                            first column contains the times at which the
+                            solution has been calculated. The following
+                            columns the values of the variables of the
+                            model. The three last columns provide the
+                            values of \code{logN}, \code{S} and
+                            \code{logS}.
           }
 }
 \description{
-Predicts the inactivation of a microorganism for dynamic temperature
-conditions. The characteristics of the microorganism are defined by
-the model parameters defined.
+Predicts the inactivation of a microorganism under isothermal or
+non-isothermal temperature conditions. The thermal resistence of
+the microorganism are defined with the input arguments.
 }
 \details{
 The value of the temperature is calculated at each value of time by
@@ -79,6 +91,6 @@ plot(prediction_results)
 ## END EXAMPLE 1 -----------
 }
 \seealso{
-\code{\link{ode}}
+\code{\link{ode}}, \code{\link{get_model_data}}
 }
 

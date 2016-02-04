@@ -12,8 +12,8 @@
 #'      \deqn{\frac{dN}{dt} = -N \cdot k_{max} \cdot \alpha \cdot \gamma}{
 #'            dN/dt = - N * k_max * \alpha * \gamma}
 #'
-#'      \deqn{\frac{dN}{dt} = - C_c \cdot k_{max}}{
-#'            dN/dt = - C_c * k_max}
+#'      \deqn{\frac{dC_c}{dt} = - C_c \cdot k_{max}}{
+#'            dC_c/dt = - C_c * k_max}
 #'
 #'      \deqn{\alpha = \frac {1}{1+C_c}}{
 #'            \alpha = 1/(1+C_c)}
