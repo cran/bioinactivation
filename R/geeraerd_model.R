@@ -56,7 +56,7 @@ dGeeraerd_model<- function(t, x, parms, temp_profile)  {
     with(as.list(c(x, parms)),{
 
         D_T <- D_R*10^((temp_ref - temp)/z)
-        k_max <- 1/D_T
+        k_max <- log(10)/D_T
 
         dC_c <- - k_max * C_c
         dN <- - N * k_max * (1/(1+C_c)) * (1 - N_min/N)
