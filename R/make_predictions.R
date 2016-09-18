@@ -21,6 +21,7 @@
 #' @param tol0 numeric. Observations at time 0 make Weibull-based models singular.
 #'        The time for observatins taken at time 0 are changed for this value.
 #'        By default (`tol0 = 1e-5`)
+#' @param ... Additional arguments passed to \code{\link{ode}}.
 #'
 #' @importFrom deSolve ode
 #' @importFrom dplyr mutate_
@@ -85,7 +86,8 @@
 #'
 #' ## END EXAMPLE 1 -----------
 #'
-predict_inactivation <- function(simulation_model, times, parms, temp_profile, tol0 = 1e-5){
+predict_inactivation <- function(simulation_model, times, parms, temp_profile,
+                                 ..., tol0 = 1e-5){
 
     #- Check of the model parameters
 
@@ -123,13 +125,15 @@ predict_inactivation <- function(simulation_model, times, parms, temp_profile, t
         out <- ode(y = xstart, times = sort(times),
                    func = model_data$ode, parms = parms,
                    temp_profile = temp_approximations$temp,
-                   dtemp_profile = temp_approximations$dtemp)
+                   dtemp_profile = temp_approximations$dtemp,
+                   ...)
 
     } else {
 
         out <- ode(y = xstart, times = sort(times),
                    func = model_data$ode, parms = parms,
-                   temp_profile = temp_approximations$temp)
+                   temp_profile = temp_approximations$temp,
+                   ...)
 
     }
 

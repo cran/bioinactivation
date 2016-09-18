@@ -4,7 +4,7 @@
 \alias{predict_inactivation}
 \title{Prediction of Dynamic Inactivation}
 \usage{
-predict_inactivation(simulation_model, times, parms, temp_profile,
+predict_inactivation(simulation_model, times, parms, temp_profile, ...,
   tol0 = 1e-05)
 }
 \arguments{
@@ -19,9 +19,11 @@ each time. It must have one column named \code{time} and another named
 \code{temperature} providing discrete values of the temperature at
 time points.}
 
+\item{...}{Additional arguments passed to \code{\link{ode}}.}
+
 \item{tol0}{numeric. Observations at time 0 make Weibull-based models singular.
-       The time for observatins taken at time 0 are changed for this value.
-       By default (`tol0 = 1e-5`)}
+The time for observatins taken at time 0 are changed for this value.
+By default (`tol0 = 1e-5`)}
 }
 \value{
 A list of class \code{SimulInactivation} with the results. It has

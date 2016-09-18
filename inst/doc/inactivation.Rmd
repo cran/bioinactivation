@@ -19,20 +19,20 @@ library(bioinactivation)
 
 The __bioinactivation__ package allows to predict the inactivation process of a population of microorganisms exposed to isothermal conditions (temperature remains constant with time) or non isothermal (temperature changes with time, dynamic conditions). Moreover, it can be used to adjust the parameters of different inactivation models to both isothermal and dynamic experimental data. All the functions contained in __bioinactivation__ are written in R.
 
-__bioinactivation__ takes advantage of the capabilities of the packages `deSolve` (Soetaert, Petzoldt, and Setzer 2010a) and `FME` (Soetaert, Petzoldt, and Setzer 2010b) to make predictions of the inactivation process and to adjust model parameters to experimental data. The inactivation models most commonly used in the industry have been implemented in this package:
+__bioinactivation__ takes advantage of the capabilities of the packages `deSolve` (Soetaert, Petzoldt, and Setzer 2010a) and `FME` (Soetaert, Petzoldt, and Setzer 2010b) to make predictions of the inactivation process and to fit model parameters to experimental data. The inactivation models most commonly used in the industry have been implemented in this package:
 
-* Bigelow's model (Bigelow, 1921),
+* Bigelow model (Bigelow, 1921),
 * Weibull-Peleg model (Peleg and Cole, 1998),
 * Weibull-Mafart model (Mafart et al., 2002),
 * Geeraerd's model (Geeraerd et al., 2005).
 
 The __bioinactivation__ package provides five functions for the modelization of microbial inactivation:
 
-* `predict_inactivation()` predicts the inactivation process of a population for some given temperature conditions, isothermal or not.
+* `predict_inactivation()` predicts the inactivation process of a population for some given temperature conditions, isothermal or dynamic.
 * `fit_isothermal_inactivation()` adjusts the parameters of a selected inactivation model to a set of isothermal inactivation experiments.
 * `fit_dynamic_inactivation()` fits the parameters of a chosen inactivation model to a set of dynamic inactivation experiments using non-linear regression.
-* `fit_inactivation_MCMC()` adjusts an inactivation model to a set of dynamic inactivation experiments using Markov Chain Monte Carlo methods.
-* `predict_inactivation_MCMC()` generates prediction intervals for isothermal or non-isothermal inactivation processes using Monte Carlo methods.
+* `fit_inactivation_MCMC()` adjusts an inactivation model to a set of dynamic inactivation experiments using a Markov Chain Monte Carlo algorithm.
+* `predict_inactivation_MCMC()` generates prediction intervals for isothermal or non-isothermal inactivation processes using a Monte Carlo method.
 
 Moreover, two functions with meta information of the inactivation models implemented are included:
 
@@ -95,9 +95,9 @@ ggplot(data = dynamic_inactivation) +
     ggtitle("Example dataset: dynamic_inactivation. Temperature profile")
 ```
 
-### The example data set of an isothermal study of laterosporus
+### The example data set of an isothermal study of Bacillus laterosporus
 
-__bioinactivation__  contains a data set with the isothermal inactivation observed in a population of _laterosporus_. This data set can be loaded as:
+__bioinactivation__  contains a data set with the isothermal inactivation observed in a population of _B. laterosporus_. This data set can be loaded as:
 
 ```{r}
 data(laterosporus_iso)
@@ -120,7 +120,7 @@ ggplot(data = laterosporus_iso) +
 
 ### The example data set of a non-isothermal study of laterosporus
 
-The data set `laterosporus_dyna` included in __bioinactivation__ contains the results of a series of non-isothermals studies performed on a population of _laterosporus_. This data set can be loaded  as:
+The data set `laterosporus_dyna` included in __bioinactivation__ contains the results of a series of non-isothermals studies performed on a population of _B. laterosporus_. This data set can be loaded  as:
 
 ```{r}
 data(laterosporus_dyna)
@@ -187,7 +187,7 @@ Weibullian models assume that the the inactivation process can be viewed as a fa
 
 The Weibullian model presented by Peleg and Cole (1998) for isothermal cases follows the equation:
 
-$$ \mathrm{log}_{10}S(t) = - b \cdot t^n $$
+$$ \log_{10}S(t) = - b \cdot t^n $$
 
 where $S = N/N_0$ represents the fraction of survivors and $t$ the time, and $b$ and $n$ are the two parameters of the model.
 
@@ -211,11 +211,11 @@ legend("topleft", c("k = 0.3","k = 0.2"), col=c("red", "blue"), lwd=1, cex = 1)
 
 The model described by Peleg and Cole (1998) for dynamic inactivation has been implemented in the __bioinactivation__ package. This model is based on the constitutive equation of the Weibull-Peleg model (Peleg and Cole, 1998) for isothermal inactivation:
 
-$$ \mathrm{log}_{10}S(t) = -b(T) \cdot t^n $$
+$$ \log_{10}S(t) = -b(T) \cdot t^n $$
 
 The inactivation rate for a constant temperature can be calculated as the first derivative with respect to time of this equation:
 
-$$ \Bigg| \frac{\mathrm{log}_{10}S(t)}{dt} \Bigg|_{T=const} = -b(T) \cdot n \cdot t^{n-1} $$
+$$ \Bigg| \frac{d \log_{10}S(t)}{dt} \Bigg|_{T=const} = -b(T) \cdot n \cdot t^{n-1} $$
 
 The time required to achieve any survival ratio, $t^\star$, can be calculated from the model equation as:
 
@@ -223,7 +223,7 @@ $$ t^\star = \Bigg| \frac{-\mathrm{log}_{10}S(t)}{b(T)} \Bigg|^{1/n} $$
 
 Substituting this expression into the rate equation, the differential constitutive equation of the model is obtained as:
 
-$$ \Bigg| \frac{\mathrm{log}_{10}S(t)}{dt} \Bigg| =
+$$ \Bigg| \frac{d \log_{10}S(t)}{dt} \Bigg| =
     -b(T) \cdot n \cdot \Bigg| \frac{ -\mathrm{log}_{10}S(t) }{b(T)} \Bigg|^\frac{n-1}{n} $$
 
 where $b(T)$ follows the same expression as for the isothermal model:
@@ -296,7 +296,8 @@ The __bioinactivation__ package includes capabilities for the prediction of the 
 * `simulation_model`,
 * `times`,
 * `parms`,
-* `temp_profile` and
+* `temp_profile`,
+* `...` and
 * `tol0` (optional).
 
 `simulation_model` is a string identifying the model to be used. A list of the available models can be obtained by calling the function `get_model_data()` without any argument.
@@ -325,7 +326,7 @@ print(model_data$parameters)
 print(model_data$variables)
 ```
 
-The input arguments `parms` must provide values for every degree of freedom of the model, i.e. model parameters and variables. The names of the model parameters must be identical to those provided by the function `get_model_data()`. On the other hand, the names assigned to the initial values of the model variables must be equal to the ones provided by `get_model_data()` plus a character `"0"`. For instance, the initial value for the variable named `N` needs to be labeled `"N0"`.
+The input argument `parms` must provide values for every degree of freedom of the model, i.e. model parameters and variables. The names of the model parameters must be identical to those provided by the function `get_model_data()`. On the other hand, the names assigned to the initial values of the model variables must be equal to the ones provided by `get_model_data()` plus a character `"0"`. For instance, the initial value for the variable named `N` needs to be labeled `"N0"`.
 
 ```{r}
 model_parms <- c(D_R = 1,
@@ -341,7 +342,7 @@ The last input variable required for the function is a data frame defining a dis
 
 Predictions for isothermal conditions can also be calculated using this function. In this case, a constant temperature profile has to be defined.
 
-A temperature profile with a constant slope of 10ºC/min ranging between 70 and 120ºC will be used for this prediction.
+A temperature profile with a constant slope of 10ºC/min ranging between 70 and 120ºC will be used for the prediction.
 
 ```{r, fig.width=6, fig.height=4, fig.align='center'}
 temperature_profile <- data.frame(time = c(0, 5),
@@ -350,6 +351,8 @@ plot(temperature_profile, type = "l")
 title("Example temperature profile")
 ```
 The inactivation models based on the Weibull distribution are singular for $t=0$. For this reason, every value of time in `times` lower than the optional argument `tol0` is changed for `tol0`. By default, `tol0 = 1e-05`.
+
+Finally, the argument `...` allows to pass adidtional arguments to the `ode()` function of the __deSolve__ package.
 
 The prediction is calculated by calling the function `predict_inactivation()` with the parameters described before. The optional argument will not be modified.
 
@@ -437,7 +440,7 @@ Note that this operation causes some warnings. The differential equation of the 
 
 ## Fitting of isothermal data
 
-The package __bioinactivation__ includes functionality for the fitting of inactivation models to isothermal data. The function `fit_isothermal_inactivation()` makes use of the `nls()` function from the `stats` package to fit the model parameters using non-linear regression.
+The __bioinactivation__ package includes functionality for the fitting of inactivation models to isothermal data. The function `fit_isothermal_inactivation()` makes use of the `nls()` function from the `stats` package to fit the model parameters using non-linear regression.
 
 The `fit_isothermal_inactivation()` function requires the definition of five input parameters:
 
@@ -459,9 +462,9 @@ The model to be used for the adjustment is defined by the character variable `mo
 get_isothermal_model_data()
 ```
 
-Note that Geeraerd's model is not available for isothermal adjustment. The reason for this is the absence of a secondary model that explains the relation between $N_{res}$ and temperature, making impossible the adjustment using non-linear regression. A possible alternative for the adjustment of Geeraerd's model to individual isothermal experiments is the use of the function `fit_dynamic_inactivation()` with a constant temperature profile.
+Note that Geeraerd's model is not available for isothermal adjustment. The reason for this is the absence of a secondary model that explains the relation between $N_{res}$ and temperature, making impossible the adjustment using non-linear regression. A possible alternative for the adjustment of Geeraerd's model to individual isothermal experiments is the use of the function `fit_dynamic_inactivation()` with a constant temperature profile and fixing the value of $z$ to an arbitrary value.
 
-Bigelow's model, whose key is `"Bigelow"`, is used in this example.
+Bigelow model, whose key is `"Bigelow"`, is used in this example.
 
 ```{r}
 model_name <- "Bigelow"
@@ -619,7 +622,7 @@ The adjustment can be based on the minimization of the error of the total count 
 
 The inactivation models based on the Weibull distribution are singular for $t=0$. For this reason, every value of time in `times` lower than the optional argument `tol0` is changed for `tol0`. By default, `tol0 = 1e-05`.
 
-Further arguments can be passed to the `modFit` function through the `...` argument.
+Further arguments can be passed to the `modFit()` function through the `...` argument.
 
 The adjustment is made by calling the function `fit_dynamic_inactivation()`:
 
@@ -671,7 +674,7 @@ plot(dynamic_fit, make_gg = FALSE,
 
 ## Fitting of dynamic experiments using Markov Chain Monte Carlo methods
 
-The function `fit_inactivation_MCMC()` from __bioinactivation__ is able to wrap the `modMCMC()` function from the FME package (Soetaert, Petzoldt, and Setzer 2010b). Therefore, inactivation models can be adjusted to dynamic experiments using Markov Chain Monte Carlo methods.
+The function `fit_inactivation_MCMC()` is able to wrap the `modMCMC()` function from the FME package (Soetaert, Petzoldt, and Setzer 2010b). Therefore, inactivation models can be adjusted to dynamic experiments using a Markov Chain Monte Carlo algorithm.
 
 The function `fit_inactivation_MCMC()` has ten input arguments:
 
@@ -686,7 +689,7 @@ The function `fit_inactivation_MCMC()` has ten input arguments:
 * `minimize_log` and
 * `tol0`.
 
-All of the input arguments except for `...` are identical in meaning and format to those defined for `fit_dynamic_inactivation()`, enabling for easy switch between both adjustment methods. The only differents is that the `...` arguments allows to send further arguments to the `modMCMC()` function.
+Every input argument except for `...` are identical in meaning and format to those defined for `fit_dynamic_inactivation()`, enabling for easy switch between both adjustment methods. The only differents is that, in this case, the `...` arguments allows to send further arguments to the `modMCMC()` function.
 
 In order to highlight the similitudes between this function and `fit_dynamic_inactivation()`, the input arguments shared by both functions will be reused in this example. An additional argument will be passed to the `modMCMC()` function, the `niter` argument. This argument defines the number of iterations of the Markov Chain Monte Carlo algorithm for the adjustment.
 
@@ -738,7 +741,7 @@ __bioinactivation__ includes the function `predict_inactivation_MCMC()`, which a
 * `quantiles` (optional) and
 * `additional_pars` (optional).
 
-The argument `fit_object` supplies to fit object to use for the genration of the prediction interval. The function is able to generate prediction intervals from objects of classes `IsoFitInactivation`, `FitInactivation` and `FitInactivationMCMC`. The algorithm for the generation of the prediction interval differs if the model was fitted using non-linear regression (`IsoFitInactivation` and `FitInactivation`) or MCMC (`FitInactivationMCMC`).
+The argument `fit_object` supplies the fit object to use for the genration of the prediction interval. The function is able to generate prediction intervals from objects of classes `IsoFitInactivation`, `FitInactivation` and `FitInactivationMCMC`. The algorithm for the generation of the prediction interval differs if the model was fitted using non-linear regression (`IsoFitInactivation` and `FitInactivation`) or MCMC (`FitInactivationMCMC`).
 
 On every case, the algorithm is based on a random sampling of the model parameters adjusted. For objects of classes `IsoFitInactivation` and `FitInactivation` it is considered that the model parameters follow a multivariate normal distribution. On the other hand, the sampling of objects of class `FitInactivationMCMC` is based on the iterations performed by the `modMCMC()` function. One example will be presented for each one of this three cases.
 
@@ -754,7 +757,7 @@ ggplot(as.data.frame(sample_iso)) +
     ggtitle("Example of multivariate normal sampling")
 ```
 
-The sampling may produce negative values of the parameters, what would result in spurious results. In case any of the model parameters generated by the model sampling is negative, that sampling is omitted.
+Due to the hypothesis used, the sampling may produce negative values of the model parameters, producing spurious results. Samples with negative values of the model parameters are omitted.
 
 The temperature profile to use for the prediction is defined by the argument `temp_profile`. It must be a data frame with one column named `time` and another one named `temperature`. 
 
@@ -788,7 +791,7 @@ A data frame of class `PredInactivationMCMC` is returned. This object includes t
 p <- plot(pred_MCMC_1)
 p + xlab("time")
 ```
-This plot shows the mean of the simulations as a dashed line, its median as a pointed line and the prediction interval generated as a blue ribbon. The differences in the mean and median by the end of the experiment suggest that the solutions may not be normally distributed.
+This plot shows the mean of the simulations as a dashed line, its median as a pointed line and the prediction interval generated as a blue ribbon. The differences in the mean and median by the end of the experiment suggest that the solutions are not normally distributed.
 
 The disperssion of the Monte Carlo simulations can be observed including the argument `quantiles = NULL`. Note that the `ggplot2` plot is not compatible with `PredInactivationMCMC` without the statistics calculated. On this case, the `base` plot system has to be used including the `make_gg = FALSE` argument in the call to the `plot()` function.
 
