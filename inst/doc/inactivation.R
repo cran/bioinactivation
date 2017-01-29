@@ -4,7 +4,7 @@ library(bioinactivation)
 ## ------------------------------------------------------------------------
 data(isothermal_inactivation)
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 library(ggplot2)
 ggplot(data = isothermal_inactivation) +
     geom_point(aes(x = time, y = log_diff, col = as.factor(temp))) +
@@ -14,12 +14,12 @@ ggplot(data = isothermal_inactivation) +
 ## ------------------------------------------------------------------------
 data(dynamic_inactivation)
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 ggplot(data = dynamic_inactivation) +
     geom_point(aes(x = time, y = log10(N))) +
     ggtitle("Example dataset: dynamic_inactivation. Observations")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 ggplot(data = dynamic_inactivation) +
     geom_point(aes(x = time, y = temperature))  +
     ggtitle("Example dataset: dynamic_inactivation. Temperature profile")
@@ -27,7 +27,7 @@ ggplot(data = dynamic_inactivation) +
 ## ------------------------------------------------------------------------
 data(laterosporus_iso)
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 ggplot(data = laterosporus_iso) +
     geom_point(aes(x = time, y = log_diff, col = as.factor(temp))) +
     ggtitle("Example dataset: laterosporus_iso")
@@ -36,17 +36,17 @@ ggplot(data = laterosporus_iso) +
 ## ------------------------------------------------------------------------
 data(laterosporus_dyna)
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 ggplot(data = laterosporus_dyna) +
     geom_point(aes(x = time, y = logN)) +
     ggtitle("Example dataset: laterosporus_dyna. Observations")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 ggplot(data = laterosporus_dyna) +
     geom_point(aes(x = time, y = temp))  +
     ggtitle("Example dataset: laterosporus_dyna. Temperature profile")
 
-## ----, echo=FALSE, fig.width=6, fig.height=4, fig.align='center'---------
+## ---- echo=FALSE, fig.width=6, fig.height=4, fig.align='center'----------
 Temperature <- seq(30, 80, length=100)
 b <- log( 1 + exp(0.3*(Temperature - 60)))
 b_1 <- log( 1 + exp(0.2*(Temperature - 60)))
@@ -77,7 +77,7 @@ model_parms <- c(D_R = 1,
                  C_c0 = 1e1
                  )
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 temperature_profile <- data.frame(time = c(0, 5),
                                   temperature = c(70, 120))
 plot(temperature_profile, type = "l")
@@ -89,19 +89,19 @@ prediction_results <- predict_inactivation(example_model, times, model_parms, te
 ## ------------------------------------------------------------------------
 head(prediction_results$simulation)
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 p <- plot(prediction_results)
 print(p)
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 library(ggplot2)
 p + theme_light() + xlab("time (min)")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 plot(prediction_results, make_gg = FALSE,
      xlab = "Time (min)", ylab = "logN")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 parms_no_shoulder <- c(D_R = 1,
                        z = 10,
                        N_min = 100,
@@ -116,7 +116,7 @@ prediction_no_shoulder <- predict_inactivation(example_model, times, parms_no_sh
 plot(prediction_no_shoulder)
 
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 parms_no_tail <- c(D_R = 1,
                    z = 10,
                    N_min = 0,
@@ -221,11 +221,11 @@ head(dynamic_fit$data)
 ## ------------------------------------------------------------------------
 dynamic_fit$best_prediction$model_parameters
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 p <- plot(dynamic_fit)
 p + theme_light()
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 plot(dynamic_fit, make_gg = FALSE,
      xlab = "Time (min)", ylab = "logN")
 
@@ -239,15 +239,15 @@ MCMC_fit <- fit_inactivation_MCMC(dynamic_inactivation, simulation_model, dummy_
 ## ------------------------------------------------------------------------
 summary(MCMC_fit$modMCMC)
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 p <- plot(MCMC_fit)
 p + xlab("Time (min)")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 plot(MCMC_fit, make_gg = FALSE,
      xlab = "Time (min)", ylab = "logN")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 library(MASS)
 sP <- summary(dynamic_fit)
 sample_iso <- mvrnorm(1000, coef(dynamic_fit$fit_results), sP$cov.unscaled)
@@ -256,7 +256,7 @@ ggplot(as.data.frame(sample_iso)) +
     geom_point(aes(x = N0, y = k_b), alpha = 0.5, size = 3) +
     ggtitle("Example of multivariate normal sampling")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 dummy_temp <- data.frame(time = c(0, 1, 4, 6), temperature = c(80, 110, 110, 80))
 ggplot(dummy_temp) +
     geom_line(aes(x = time, y = temperature)) +
@@ -267,33 +267,33 @@ set.seed(7163)
 pred_MCMC_1 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp)
 head(pred_MCMC_1)
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 p <- plot(pred_MCMC_1)
 p + xlab("time")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 set.seed(7163)
 pred_MCMC_2 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp, quantiles = NULL)
 plot(pred_MCMC_2, make_gg = FALSE,
      xlab = "Time (min)", ylab = "logN")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 set.seed(7163)
 pred_MCMC_3 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp, n_simulations = 200)
 p <- plot(pred_MCMC_3)
 p + ylab("logN")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 set.seed(7163)
 pred_MCMC_4 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp, quantiles = c(0, 95))
 p <- plot(pred_MCMC_4)
 p + ylab("logN")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 library(MASS)
 sample_iso <- mvrnorm(1000, coef(iso_fit$nls), vcov(iso_fit$nls))
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 set.seed(918734)
 times <- seq(0, 6, length = 50)
 dummy_temp <- data.frame(time = c(0, 3, 4, 6), temperature = c(80, 110, 110, 80))
@@ -303,7 +303,7 @@ pred_int_iso <- predict_inactivation_MCMC(iso_fit, dummy_temp,
 p <- plot(pred_int_iso)
 p + xlab("time")
 
-## ----, fig.width=6, fig.height=4, fig.align='center'---------------------
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 set.seed(918734)
 dummy_temp <- data.frame(time = c(0, 1, 4, 6), temperature = c(80, 110, 110, 80))
 pred_int_MCMC <- predict_inactivation_MCMC(MCMC_fit, dummy_temp)
