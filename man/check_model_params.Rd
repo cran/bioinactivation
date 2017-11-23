@@ -30,4 +30,3 @@ adjustment and the DOF of the inactivation model selected.
      \item Check that every single one of the model DOF are defined as
            an input DOF.}
 }
-

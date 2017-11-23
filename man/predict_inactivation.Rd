@@ -96,4 +96,3 @@ plot(prediction_results)
 \seealso{
 \code{\link{ode}}, \code{\link{get_model_data}}
 }
-

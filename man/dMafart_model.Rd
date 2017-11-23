@@ -57,7 +57,7 @@ This function is compatible with the function
      For t=0, dN = 0 unless n=1. Hence, a small shift needs to be introduced
      to t.
 }
+
 \seealso{
 \code{\link{predict_inactivation}}
 }
-

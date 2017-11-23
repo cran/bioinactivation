@@ -1,4 +1,14 @@
 
+# Version 1.2.0
+
+* Implemented the ggplot2 plotting of isothermal fit objects.
+* Added the option to include the temperature profile in the
+plot.
+* The fitting and prediction functions now also accept logN0, as well
+as N0. If logN0 is a fitting parameters, this variable is fitted, rather
+than N0 (which is more stable numerically).
+* Added the Arrhenius model.
+
 # Version 1.1.5
 
 * Corrected the DOI in the citation file.

@@ -91,4 +91,3 @@ plot(dynamic_fit)
 \seealso{
 \code{\link{modFit}}
 }
-

@@ -65,12 +65,12 @@
 #' upper_bounds <- c(n = 2, k_b = 1, N0 = 1e6)
 #' lower_bounds <- c(n = 0.5, k_b = 0.1, N0 = 1e4)
 #'
-#' minimize_log = TRUE
-#'
 #' MCMC_fit <- fit_inactivation_MCMC(dynamic_inactivation, simulation_model,
 #'                                      dummy_temp, starting_points,
 #'                                      upper_bounds, lower_bounds,
-#'                                      known_params, niter = 500)
+#'                                      known_params,
+#'                                      niter = 100)
+#'                                      # It is recommended to increase niter
 #'
 #' plot(MCMC_fit)
 #' ## END EXAMPLE 1 -----
@@ -82,7 +82,7 @@ fit_inactivation_MCMC <- function(experiment_data, simulation_model, temp_profil
 
     #- Check of the model parameters
 
-    check_model_params(simulation_model, known_params, starting_points, TRUE)
+    # check_model_params(simulation_model, known_params, starting_points, TRUE)
 
     #- Gather the information
 

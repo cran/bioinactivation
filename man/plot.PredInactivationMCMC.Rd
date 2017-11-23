@@ -35,4 +35,3 @@ The plot generated with base R (make_gg = \code{FALSE}) generates a solid line
 wth the mean of the MC simulations. Each one of the other quantiles included
 in the data frame are added with different
 }
-

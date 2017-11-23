@@ -43,4 +43,3 @@ For the adjustment of isothermal experiments with the function
 \code{\link{predict_inactivation}},
          \code{\link{fit_dynamic_inactivation}}
 }
-

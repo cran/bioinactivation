@@ -40,7 +40,7 @@
 #' @examples
 #' ## EXAMPLE 1 -----------
 #'
-#' data(isothermal_inactivation)  # data set used for the example.
+#' data("isothermal_inactivation")  # data set used for the example.
 #'
 #' get_isothermal_model_data()  # retrieve valid model keys.
 #' model_name <- "Bigelow"  # Bigelow's model will be used for the adjustment.
@@ -52,7 +52,6 @@
 #'
 #' known_params = list(temp_ref = 100)
 #' starting_point <- c(z = 10,D_R = 1)
-#' adjust_log <- TRUE
 #'
 #' ## Call the fitting function
 #' iso_fit <- fit_isothermal_inactivation(model_name,
@@ -150,7 +149,12 @@ get_isothermal_model_data <- function(model_name = "valids") {
                         prediction = "Bigelow_iso"
                         ),
 
-           valids = c("Mafart", "Peleg", "Bigelow")
+           Arrhenius = list(params = c("k_ref", "temp_ref", "Ea"),
+                            formula_iso = "Arrhenius_iso(time, temp, k_ref, temp_ref, Ea)",
+                            prediction = "Arrhenius_iso"
+                            ),
+
+           valids = c("Mafart", "Peleg", "Bigelow", "Arrhenius")
            )
 
 }

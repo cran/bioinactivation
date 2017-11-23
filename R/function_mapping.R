@@ -37,6 +37,7 @@
 #' @seealso \code{\link{predict_inactivation}},
 #'          \code{\link{fit_dynamic_inactivation}}
 #'
+
 get_model_data <- function(simulation_model = NULL) {
 
     function_map <- list(Bigelow = list(ode = dBigelow_model,
@@ -84,7 +85,13 @@ get_model_data <- function(simulation_model = NULL) {
                                             variables_priv = "logS",
                                             parameters = c("k_b", "temp_crit",
                                                            "n")
-                                            )
+                                            ),
+                         Arrhenius = list(ode = dArrhenius_model,
+                                          dtemp = FALSE,
+                                          variables = "N",
+                                          variables_prov = "N",
+                                          parameters = c("k_ref", "temp_ref",
+                                                         "Ea"))
 
 #                          Weibull_Peleg_full = list(ode = dPeleg_model_full,
 #                                                    dtemp = TRUE,

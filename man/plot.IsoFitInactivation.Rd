@@ -4,7 +4,7 @@
 \alias{plot.IsoFitInactivation}
 \title{Plot of IsoFitInactivation Object}
 \usage{
-\method{plot}{IsoFitInactivation}(x, y = NULL, ...)
+\method{plot}{IsoFitInactivation}(x, y = NULL, ..., make_gg = FALSE)
 }
 \arguments{
 \item{x}{the object of class \code{IsoFitInactivation} to plot.}
@@ -12,10 +12,13 @@
 \item{y}{ignored}
 
 \item{...}{additional arguments passed to \code{plot}.}
+
+\item{make_gg}{logical. If \code{TRUE}, the plot is created using
+\code{ggplot2}. Otherwise, the plot is crated with base \code{R}.
+\code{FALSE} by default.}
 }
 \description{
 For each one of the temperatures studied, plots a comparison between the
 predicted result and the experimental one for an instance of
 \code{IsoFitInactivation}.
 }
-

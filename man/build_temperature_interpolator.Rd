@@ -27,4 +27,3 @@ and constant outside the time interval provided.
 \seealso{
 \code{\link{approxfun}}
 }
-

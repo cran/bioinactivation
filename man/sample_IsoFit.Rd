@@ -39,4 +39,3 @@ produces a random sample using the function \code{\link{mvrnorm}}.
 \seealso{
 \code{\link{mvrnorm}}
 }
-

@@ -4,7 +4,9 @@
 \alias{plot.FitInactivationMCMC}
 \title{Plot of FitInactivationMCMC Object}
 \usage{
-\method{plot}{FitInactivationMCMC}(x, y = NULL, ..., make_gg = TRUE)
+\method{plot}{FitInactivationMCMC}(x, y = NULL, ..., make_gg = TRUE,
+  plot_temp = FALSE, label_y1 = "logN", label_y2 = "Temperature",
+  ylims = NULL)
 }
 \arguments{
 \item{x}{the object of class \code{FitInactivation} to plot.}
@@ -16,6 +18,16 @@
 \item{make_gg}{logical. If \code{TRUE}, the plot is created using
 \code{ggplot2}. Otherwise, the plot is crated with base \code{R}.
 \code{TRUE} by default.}
+
+\item{plot_temp}{logical. Whether the temperature profile will
+be added to the plot. \code{FALSE} by default.}
+
+\item{label_y1}{Label of the principal y-axis.}
+
+\item{label_y2}{Label of the secondary y-axis.}
+
+\item{ylims}{Numeric vector of length 2 with the Limits of the
+y-axis. \code{NULL} by default (0, max_count).}
 }
 \value{
 If \code{make_gg = FALSE}, the plot is created. Otherwise, an
@@ -26,4 +38,3 @@ Plots a comparison between the experimental data provided and the prediction
 produced by the model parameters adjusted for an instance of
 \code{FitInactivationMCMC}.
 }
-

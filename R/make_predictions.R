@@ -89,6 +89,17 @@
 predict_inactivation <- function(simulation_model, times, parms, temp_profile,
                                  ..., tol0 = 1e-5){
 
+    #- Convert parms to a list
+
+    parms <- as.list(parms)
+
+    #- If logN0 was provided rather than N0, substitute it
+
+    if ("logN0" %in% names(parms)) {
+        parms$N0 <- 10^parms$logN0
+        parms$logN0 <- NULL
+    }
+
     #- Check of the model parameters
 
     check_model_params(simulation_model, c(), parms, TRUE)

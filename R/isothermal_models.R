@@ -66,6 +66,29 @@ WeibullPeleg_iso <- function(time, temp, n, k_b, temp_crit){
 
 }
 
+#' Isothermal Arrhenius model
+#'
+#' Returns the predicted logarithmic reduction in microbial count according
+#' to Arrhenius model for the time, temperature and model parameters
+#' given.
+#'
+#' @param time numeric indicating the time at which the prediction is taken.
+#' @param temp numeric indicating the temperature of the treatment.
+#' @param k_ref numeric indicating the inactivation rate at the reference
+#' temperature.
+#' @param temp_ref numeric indicating the reference temperature.
+#' @param Ea numeric indicating the activation energy.
+#'
+#' @return A numeric with the predicted logarithmic reduction
+#'         (\eqn{log10(N/N0)}).
+#'
+Arrhenius_iso <- function(time, temp, k_ref, temp_ref, Ea) {
+
+    k <- k_ref * exp(-Ea/8.31 * (1/temp - 1/temp_ref) )
+    log_diff <- - log(10) * k * time
+    log_diff
+}
+
 ### ---------------------------------------------------------- ###
 ### SECONDARY  MODEL FOR N_RES IS NEEDED  TO DEVELOP THE MODEL ###
 

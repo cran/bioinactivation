@@ -31,4 +31,3 @@ Function to be called by \code{\link{predict_inactivation_MCMC}}. Produces
 a random sample of the parameters calculated on the iterations of the Monte
 Carlo simulation.
 }
-

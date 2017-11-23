@@ -24,4 +24,3 @@ function \code{\link{predict_inactivation}} or adjust dynamic experiments
 with \code{\link{fit_dynamic_inactivation}}, use
 \code{\link{get_model_data}}.
 }
-

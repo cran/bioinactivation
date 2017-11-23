@@ -84,7 +84,7 @@ fit_dynamic_inactivation <- function(experiment_data, simulation_model, temp_pro
 
     #- Check of the model parameters
 
-    check_model_params(simulation_model, known_params, starting_points, TRUE)
+    # check_model_params(simulation_model, known_params, starting_points, TRUE)
 
     #- Gather the information
 

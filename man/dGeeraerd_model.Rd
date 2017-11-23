@@ -63,7 +63,7 @@ This function is compatible with the function
      To define the Geeraerd model without tail, assign \code{N_min = 0}.
      For the model without shoulder, assign \code{C_0 = 0}
 }
+
 \seealso{
 \code{\link{predict_inactivation}}
 }
-

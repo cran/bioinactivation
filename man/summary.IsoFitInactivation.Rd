@@ -14,4 +14,3 @@
 \description{
 Summary of a IsoFitInactivation object
 }
-

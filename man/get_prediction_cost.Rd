@@ -37,4 +37,3 @@ This function is compatible with the function
 \seealso{
 \code{\link{modCost}}, \code{\link{fit_dynamic_inactivation}}
 }
-

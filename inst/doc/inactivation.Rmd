@@ -25,6 +25,7 @@ __bioinactivation__ takes advantage of the capabilities of the packages `deSolve
 * Weibull-Peleg model (Peleg and Cole, 1998),
 * Weibull-Mafart model (Mafart et al., 2002),
 * Geeraerd's model (Geeraerd et al., 2005).
+* Arrhenius model (Box, 1960).
 
 The __bioinactivation__ package provides five functions for the modelization of microbial inactivation:
 
@@ -154,10 +155,11 @@ The inactivation models most commonly used in both academy and industry for the 
 * Weibull-Peleg model (Peleg and Cole, 1998),
 * Weibull-Mafart model (Mafart et al., 2002),
 * Geeraerd model (Geeraerd et al., 2005).
+* Arrhenius model (Box, 1960).
 
 A brief mathematical description of each one of them is presented through this section.
 
-### Bigelow's model for isothermal data
+### Bigelow model for isothermal data
 
 Bigelow's model (Bigelow, 1921) assumes that the inactivation process follows a first order kinetics. Therefore, a linear relation exists between the logarithm of the number of microorganisms ($N$) and the time ($t$).
 
@@ -169,7 +171,7 @@ $$ \mathrm{log}_{10}D(T) = \mathrm{log}_{10}D_R + \frac{T_R-T}{z} $$
 
 where $T_R$ is a reference temperature and $D_R$ the D-value at this temperature. The parameter $z$ is usually named z-value and provides an indication of the sensitivity of the microorganism to temperature variations.
 
-### Bigelow's model for nonisothermal data
+### Bigelow model for nonisothermal data
 
 Bigelow's model for nonisothermal data is developed from the isothermal one by calculating the first derivative of its constitutive equation with respect to time.
 
@@ -254,7 +256,7 @@ As well as for the isothermal model, an exponential relation between $\delta(T)$
 
 $$ \delta(T) = \frac {\delta_{ref}} {10^ {\big( T-T_{ref}/z \big)} }  $$
 
-### Geeraerd's model
+### Geeraerd model
 
 The inactivation model described by Geeraerd et al. (2005) is based on the assumption that the inactivation process follows a first order kinetics with rate $k$. 
 
@@ -286,6 +288,18 @@ The tail parameter is defined by the equation
 $$ \gamma = 1 - \frac{N_{res}}{N} $$
 
 where $N_{res}$ stands for the residual number of microorganism after the treatment.
+
+### Arrhenius inactivation model
+
+Several versions of the Arrhenius model are available in the literature. In **bioinactivation**, a log-linear primary inactivation model:
+
+$$ \frac{ dN}{dt} = -k(T)\cdot N $$
+
+where $k(T)$ represents the specific inactivation rate at temperature ($T$). The reparametrization proposed by Box (1960) was used as secondary model:
+
+$$ k(T) = k_{ref} \exp{ \left[- \frac{E_a}{R} \left( \frac{1}{T} - \frac{1}{T_{ref}} \right) \right]}$$
+
+ where $k_{ref}$ is the value of $k$ at the reference temperature $T_{ref}$. $E_a$ is the activation energy and $R = 8.31 J\cdot mol^{-1} K^{-1}$, is the universal constant gas.
 
 ## Prediction of microbial inactivation
 
@@ -438,6 +452,14 @@ plot(prediction_no_tail)
 ```
 Note that this operation causes some warnings. The differential equation of the system is solved for the variable `N`. For values of this variable very close to zero (of an order of magnitude lower than $10^{-5}$), the numerical error may cause the calculated value of `N` to be lower than zero. Afterwards, when the logarithmic count of microorganisms is calculated, warnings are generated for these values. However, this problem only occurs for values of `N` below the level of detection in normal laboratory conditions and are not relevant in most cases.
 
+The prediction interval can be added to the plot by setting the parameter `plot_temp` to `TRUE`.
+
+```{r, fig.width=6, fig.height=4, fig.align='center'}
+plot(prediction_results, plot_temp = TRUE)
+```
+
+If this is the case, the temperature is plotted as a solid line and the prediction curve as a dashed line.
+
 ## Fitting of isothermal data
 
 The __bioinactivation__ package includes functionality for the fitting of inactivation models to isothermal data. The function `fit_isothermal_inactivation()` makes use of the `nls()` function from the `stats` package to fit the model parameters using non-linear regression.
@@ -540,6 +562,15 @@ The class `IsoFitInactivation` implements S3 methods for `plot()`. This method g
 plot(iso_fit, ylab = "Number of logarithmic reductions",
      xlab = "Time (min)")
 ```
+
+The plot can also be generated using ggplot2. To do that, the argument `make_gg = TRUE` must be added to the call to the `plot()` function.
+
+```{r, fig.width=6, fig.height=4, fig.align='center'}
+plot(iso_fit, make_gg = TRUE) +
+    ylab("Number of logarithmic reductions") +
+    xlab("Time (min)")
+```
+
 
 ## Fitting of dynamic experiments using non-linear regression
 
@@ -665,6 +696,14 @@ p <- plot(dynamic_fit)
 p + theme_light()
 ```
 
+The temperature profile can be added to the plot by setting the argument `plot_temp` to `TRUE`.
+
+```{r, fig.width=6, fig.height=4, fig.align='center'}
+plot(dynamic_fit, plot_temp = TRUE)
+```
+
+In this case, the temperature profile is plotted as a solid line and the survivor curve as a dashed line.
+
 The base R graph can be generated including the argument `make_gg = FALSE`.
 
 ```{r, fig.width=6, fig.height=4, fig.align='center'}
@@ -722,6 +761,14 @@ The `FitInactivationMCMC` instance includes a S3 implementation of `plot()` for 
 p <- plot(MCMC_fit)
 p + xlab("Time (min)")
 ```
+
+The temperature profile can be added to the plot by setting the argument `plot_temp` to `TRUE`. 
+
+```{r, fig.width=6, fig.height=4, fig.align='center'}
+plot(MCMC_fit, plot_temp = TRUE)
+```
+
+If this is the case, the temperature profile is shown as a solid line and the survivor curve as a dashed line.
 
 The base R graph can be generated including the argument `make_gg = FALSE`.
 

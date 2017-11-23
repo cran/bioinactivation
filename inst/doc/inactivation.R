@@ -131,6 +131,9 @@ prediction_no_tail <- predict_inactivation(example_model, times, parms_no_tail, 
 plot(prediction_no_tail)
 
 
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
+plot(prediction_results, plot_temp = TRUE)
+
 ## ------------------------------------------------------------------------
 data(isothermal_inactivation)
 
@@ -173,6 +176,11 @@ head(iso_fit$data)
 ## ------------------------------------------------------------------------
 plot(iso_fit, ylab = "Number of logarithmic reductions",
      xlab = "Time (min)")
+
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
+plot(iso_fit, make_gg = TRUE) +
+    ylab("Number of logarithmic reductions") +
+    xlab("Time (min)")
 
 ## ------------------------------------------------------------------------
 data(dynamic_inactivation)
@@ -226,6 +234,9 @@ p <- plot(dynamic_fit)
 p + theme_light()
 
 ## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
+plot(dynamic_fit, plot_temp = TRUE)
+
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 plot(dynamic_fit, make_gg = FALSE,
      xlab = "Time (min)", ylab = "logN")
 
@@ -242,6 +253,9 @@ summary(MCMC_fit$modMCMC)
 ## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 p <- plot(MCMC_fit)
 p + xlab("Time (min)")
+
+## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
+plot(MCMC_fit, plot_temp = TRUE)
 
 ## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 plot(MCMC_fit, make_gg = FALSE,

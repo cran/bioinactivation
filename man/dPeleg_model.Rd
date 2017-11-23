@@ -57,7 +57,7 @@ This function is compatible with the function
      For logS=0, dlogS = 0 unless n=1. Hence, a small shift needs to be introduced
      to logS.
 }
+
 \seealso{
 \code{\link{predict_inactivation}}
 }
-

@@ -26,4 +26,3 @@ Returns the predicted logarithmic reduction in microbial count according
 to Weibull-Peleg's model for the time, temperature and model parameters
 given.
 }
-

@@ -16,4 +16,3 @@ A logic specifying whether \code{x} is of class
 \description{
 Tests if an object is of class \code{IsoFitInactivation}.
 }
-

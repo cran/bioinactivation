@@ -38,4 +38,3 @@ covariance matrix returned by \code{\link{modFit}} is used.
 
 The function produces a random sample using the function \code{\link{mvrnorm}}.
 }
-

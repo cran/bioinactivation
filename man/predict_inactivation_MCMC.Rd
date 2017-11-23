@@ -44,4 +44,3 @@ Given a model adjustment of a dynamic microbial inactivation process
 performed using any of the functions in \code{bioinactivation} calculates
 probability intervals at each time point using a Monte Carlo method.
 }
-
