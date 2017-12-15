@@ -1,8 +1,8 @@
 Package: bioinactivation
 Type: Package
 Title: Simulation of Dynamic Microbial Inactivation
-Version: 1.2.0
-Date: 2017-11-23
+Version: 1.2.1
+Date: 2017-12-15
 Authors@R: c(person("Alberto", "Garre", email = "garre.alberto@gmail.com", role = c("aut", "cre")),
              person("Pablo S.", "Fernandez", email = "pablo.fernandez@upct.es", role = "aut"),
              person("Jose A.", "Egea", email = "josea.egea@upct.es", role = "aut")
@@ -18,10 +18,10 @@ Suggests: knitr (>= 1.9), testthat (>= 0.9.1)
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2017-11-23 16:39:51 UTC; Alberto
+Packaged: 2017-12-15 10:19:59 UTC; Alberto
 Author: Alberto Garre [aut, cre],
   Pablo S. Fernandez [aut],
   Jose A. Egea [aut]
 Maintainer: Alberto Garre <garre.alberto@gmail.com>
 Repository: CRAN
-Date/Publication: 2017-11-23 21:03:06 UTC
+Date/Publication: 2017-12-15 12:09:39 UTC

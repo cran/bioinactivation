@@ -1,6 +1,6 @@
-1fd52ee3f30097fcf706724976f27289 *DESCRIPTION
+04fcb6ba418ffba0e48136ac890d6acd *DESCRIPTION
 fbbd8c30287033afc56f48bf628cb602 *NAMESPACE
-8f72f0c8c970574d1ecc3f449b50615d *NEWS.md
+3b78d1021e2ff3d961c5e600f1dc24e4 *NEWS.md
 9a30843f7bd05893fe3888a51ec6f35c *R/arrhenius_model.R
 558c61280625db4d8807d2e8ab1528de *R/bigelow_model.R
 a1f9cc34bcb8818add97c974da704821 *R/calculate_cost.R
@@ -13,7 +13,7 @@ af7beca302c8e3be218e7c1158f954c9 *R/isothermal_fit.R
 380e19efb76d8d9b0cd09c6701820677 *R/isothermal_models.R
 5f5914c792a6f5c73fc74f77afd42256 *R/make_predictions.R
 c7afb966479bb3c3c2aebf0b63f38aed *R/methods_s3_others.R
-6c2cdcbbfacc76f7de069b956b67dd6d *R/methods_s3_plot.R
+89b61c4917685436b9575d332fc60839 *R/methods_s3_plot.R
 b89c0dc63957e9d5b03467c4c72ddb68 *R/predict_MCMC.R
 c8d4ea24f62ae8ea7993d18217bb57a9 *R/temperature_interpolation.R
 ef5434576cb0fe2e8d744b347210e173 *R/weibull-mafart_model.R
@@ -27,7 +27,7 @@ f7a95a3a2b5144b003369010bf005506 *data/isothermal_inactivation.rda
 0a25ab9230045213d73080c402766721 *inst/CITATION
 339e6e254b7ed6a85d619add3574b9eb *inst/doc/inactivation.R
 fc6892b6903976ad3fcac162d5798141 *inst/doc/inactivation.Rmd
-ebca9f2f7d261a07129a0638b46ccde4 *inst/doc/inactivation.html
+185c3f55b1bb0c061935cdfb8d1cba36 *inst/doc/inactivation.html
 03f38827505e3a4218fbafcea0b9ec16 *man/Arrhenius_iso.Rd
 57bcad589c27c87c8a673822ae3da539 *man/Bigelow_iso.Rd
 21881d8b0f4b5c02fb4837037eb70972 *man/WeibullMafart_iso.Rd

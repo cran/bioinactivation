@@ -50,6 +50,13 @@ plot.SimulInactivation <- function(x, y=NULL, ...,
             min_temp <- min(x$temp_approximations$temp(tt))
             max_temp <- max(x$temp_approximations$temp(tt))
 
+            if (max_temp == min_temp) {  # Isothermal profile
+
+                max_temp <- max_temp + 1
+                min_temp <- min_temp - 1
+
+            }
+
             slope <- (max_count)/(max_temp - min_temp)
             intercept <- (min_temp * (max_count-0)/(max_temp - min_temp) - 0)
 
@@ -68,7 +75,6 @@ plot.SimulInactivation <- function(x, y=NULL, ...,
                                    name = label_y1,
                                    sec.axis = sec_axis(~(. + intercept)/slope,
                                                        name = label_y2))
-
 
         } else {
 

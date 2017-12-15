@@ -1,4 +1,9 @@
 
+# Version 1.2.1
+
+* Corrected a bug in the plotting of dynamic predictions when the
+profile was isothermal.
+
 # Version 1.2.0
 
 * Implemented the ggplot2 plotting of isothermal fit objects.
