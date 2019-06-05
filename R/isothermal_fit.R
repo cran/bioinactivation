@@ -154,7 +154,17 @@ get_isothermal_model_data <- function(model_name = "valids") {
                             prediction = "Arrhenius_iso"
                             ),
 
-           valids = c("Mafart", "Peleg", "Bigelow", "Arrhenius")
+           Metselaar = list(params = c("D_R", "z", "p", "temp_ref", "Delta"),
+                            formula_iso = "Metselaar_iso(time, temp, D_R, z, p, Delta, temp_ref)",
+                            prediction = "Metselaar_iso"
+                            ),
+
+           valids = c("Mafart", "Peleg", "Bigelow", "Arrhenius", "Metselaar")
            )
 
 }
+
+
+
+
+

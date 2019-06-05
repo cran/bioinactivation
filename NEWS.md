@@ -1,4 +1,9 @@
 
+# Version 1.2.2
+
+* Corrected bug in the plotting of dynamic predictions when there were NAs in logN.
+* Added the Metselaar model.
+
 # Version 1.2.1
 
 * Corrected a bug in the plotting of dynamic predictions when the

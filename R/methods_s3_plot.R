@@ -44,7 +44,7 @@ plot.SimulInactivation <- function(x, y=NULL, ...,
             min_time <- min(x$simulation$time)
             max_time <- max(x$simulation$time)
 
-            max_count <- max(x$simulation$logN)
+            max_count <- max(x$simulation$logN, na.rm = TRUE)
 
             tt <- seq(min_time, max_time, length = 100)
             min_temp <- min(x$temp_approximations$temp(tt))

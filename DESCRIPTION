@@ -1,8 +1,8 @@
 Package: bioinactivation
 Type: Package
 Title: Simulation of Dynamic Microbial Inactivation
-Version: 1.2.1
-Date: 2017-12-15
+Version: 1.2.2
+Date: 2019-06-04
 Authors@R: c(person("Alberto", "Garre", email = "garre.alberto@gmail.com", role = c("aut", "cre")),
              person("Pablo S.", "Fernandez", email = "pablo.fernandez@upct.es", role = "aut"),
              person("Jose A.", "Egea", email = "josea.egea@upct.es", role = "aut")
@@ -16,12 +16,12 @@ Imports: dplyr (>= 0.4.1), deSolve (>= 1.11), FME (>= 1.3.2), lazyeval
         3.1.3), stats (>= 3.1.3), rlang(>= 0.1.2)
 Suggests: knitr (>= 1.9), testthat (>= 0.9.1)
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2017-12-15 10:19:59 UTC; Alberto
+Packaged: 2019-06-05 08:14:00 UTC; alberto
 Author: Alberto Garre [aut, cre],
   Pablo S. Fernandez [aut],
   Jose A. Egea [aut]
 Maintainer: Alberto Garre <garre.alberto@gmail.com>
 Repository: CRAN
-Date/Publication: 2017-12-15 12:09:39 UTC
+Date/Publication: 2019-06-05 08:40:03 UTC

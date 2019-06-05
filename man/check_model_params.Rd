@@ -4,7 +4,8 @@
 \alias{check_model_params}
 \title{Correctness Check of Model Parameters}
 \usage{
-check_model_params(simulation_model, known_params, starting_points, adjust_vars)
+check_model_params(simulation_model, known_params, starting_points,
+  adjust_vars)
 }
 \arguments{
 \item{simulation_model}{character with a valid model key.}

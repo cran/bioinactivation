@@ -62,6 +62,15 @@ get_model_data <- function(simulation_model = NULL) {
                                                             "temp_ref", "z",
                                                             "p")
                                              ),
+                            Metselaar = list(ode = dMetselaar_model,
+                                          dtemp = FALSE,
+                                          variables = "N",
+                                          variables_priv = "N",
+                                          parameters = c("D_R",
+                                                         "temp_ref", "z",
+                                                         "p", "Delta")
+                            ),
+
 
 #                          Weibull_Mafart_full = list(ode = dMafart_model_full,
 #                                                     dtemp = TRUE,

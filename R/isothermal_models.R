@@ -89,6 +89,30 @@ Arrhenius_iso <- function(time, temp, k_ref, temp_ref, Ea) {
     log_diff
 }
 
+#' Isothermal Metselaar model
+#'
+#' Returns the predicted logarithmic reduction in microbial count according
+#' to Metselaars's model for the time, temperature and model parameters
+#' given.
+#'
+#' @param time numeric indicating the time at which the prediction is taken.
+#' @param temp numeric indicating the temperature of the treatment.
+#' @param D_R numeric defining the delta-value at the reference temperature.
+#' @param z numeric defining the z-value.
+#' @param p numeric defining shape factor of the Weibull distribution.
+#' @param temp_ref numeric indicating the reference temperature.
+#' @param Delta numeric reparametrization factor
+#'
+#' @return A numeric with the predicted logarithmic reduction
+#'         (\eqn{log10(N/N0)}).
+#'
+Metselaar_iso <- function(time, temp, D_R, z, p, Delta, temp_ref) {
+
+    D_T <- D_R * 10^( (temp_ref - temp)/z )
+    log_diff <- -Delta*(time/D_T/Delta)^p
+    return(log_diff)
+}
+
 ### ---------------------------------------------------------- ###
 ### SECONDARY  MODEL FOR N_RES IS NEEDED  TO DEVELOP THE MODEL ###
 
