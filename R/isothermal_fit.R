@@ -60,7 +60,8 @@
 #'
 #' ## Output of the results
 #'
-#' plot(iso_fit)
+#' plot(iso_fit, make_gg = TRUE)
+#' goodness_of_fit(iso_fit)
 #'
 #' ## END EXAMPLE 1 --------
 #'

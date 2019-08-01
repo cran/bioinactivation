@@ -84,6 +84,7 @@ dynamic_fit <- fit_dynamic_inactivation(dynamic_inactivation, simulation_model,
                                         known_params)
 
 plot(dynamic_fit)
+goodness_of_fit(dynamic_fit)
 
 ## END EXAMPLE 1 -----
 

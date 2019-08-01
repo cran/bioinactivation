@@ -84,6 +84,8 @@ MCMC_fit <- fit_inactivation_MCMC(dynamic_inactivation, simulation_model,
                                      # It is recommended to increase niter
 
 plot(MCMC_fit)
+goodness_of_fit(MCMC_fit)
+
 ## END EXAMPLE 1 -----
 
 }

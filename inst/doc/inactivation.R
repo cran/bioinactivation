@@ -61,7 +61,7 @@ get_model_data()
 example_model <- "Geeraerd"
 
 ## ------------------------------------------------------------------------
-times <- seq(0, 5, length=100)
+times <- seq(0, 4.5, length=100)
 
 ## ------------------------------------------------------------------------
 model_data <- get_model_data(example_model)
@@ -69,7 +69,7 @@ print(model_data$parameters)
 print(model_data$variables)
 
 ## ------------------------------------------------------------------------
-model_parms <- c(D_R = 1,
+model_parms <- c(D_R = 3,
                  z = 10,
                  N_min = 1e2,
                  temp_ref = 100,
@@ -78,8 +78,9 @@ model_parms <- c(D_R = 1,
                  )
 
 ## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-temperature_profile <- data.frame(time = c(0, 5),
+temperature_profile <- data.frame(time = c(0, 4.5),
                                   temperature = c(70, 120))
+
 plot(temperature_profile, type = "l")
 title("Example temperature profile")
 
@@ -102,7 +103,7 @@ plot(prediction_results, make_gg = FALSE,
      xlab = "Time (min)", ylab = "logN")
 
 ## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-parms_no_shoulder <- c(D_R = 1,
+parms_no_shoulder <- c(D_R = 3,
                        z = 10,
                        N_min = 100,
                        temp_ref = 100,
@@ -117,7 +118,7 @@ plot(prediction_no_shoulder)
 
 
 ## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-parms_no_tail <- c(D_R = 1,
+parms_no_tail <- c(D_R = 3,
                    z = 10,
                    N_min = 0,
                    temp_ref = 100,
@@ -189,7 +190,7 @@ data(dynamic_inactivation)
 get_model_data()
 
 ## ------------------------------------------------------------------------
-simulation_model <- "Peleg"
+simulation_model <- "Mafart"
 
 ## ------------------------------------------------------------------------
 dummy_temp <- data.frame(time = dynamic_inactivation$time,
@@ -201,19 +202,22 @@ model_data$parameters
 model_data$variables
 
 ## ------------------------------------------------------------------------
-known_params = c(temp_crit = 100)
+known_params = c(temp_ref = 90)
 
 ## ------------------------------------------------------------------------
-starting_points <- c(n = 1,
-                     k_b = 0.25,
-                     N0 = 1e+05)
-upper_bounds <- c(n = 2,
-                  k_b = 1,
-                  N0 = Inf)
+starting_points <- c(delta_ref = 10,
+                     p = 1,
+                     z = 10,
+                     logN0 = 5)
+upper_bounds <- c(delta_ref = 20,
+                  p = 2,
+                  z = 20,
+                  logN0 = Inf)
 
-lower_bounds <- c(n = 0,
-                  k_b = 0,
-                  N0 = 1e4)
+lower_bounds <- c(delta_ref = 5,
+                  p = .5,
+                  z = 5,
+                  logN0 = 4)
 
 ## ------------------------------------------------------------------------
 dynamic_fit <- fit_dynamic_inactivation(dynamic_inactivation, simulation_model, dummy_temp,  
@@ -260,67 +264,4 @@ plot(MCMC_fit, plot_temp = TRUE)
 ## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
 plot(MCMC_fit, make_gg = FALSE,
      xlab = "Time (min)", ylab = "logN")
-
-## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-library(MASS)
-sP <- summary(dynamic_fit)
-sample_iso <- mvrnorm(1000, coef(dynamic_fit$fit_results), sP$cov.unscaled)
-
-ggplot(as.data.frame(sample_iso)) +
-    geom_point(aes(x = N0, y = k_b), alpha = 0.5, size = 3) +
-    ggtitle("Example of multivariate normal sampling")
-
-## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-dummy_temp <- data.frame(time = c(0, 1, 4, 6), temperature = c(80, 110, 110, 80))
-ggplot(dummy_temp) +
-    geom_line(aes(x = time, y = temperature)) +
-    ggtitle("Temperature profile used for the prediction interval")
-
-## ------------------------------------------------------------------------
-set.seed(7163)
-pred_MCMC_1 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp)
-head(pred_MCMC_1)
-
-## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-p <- plot(pred_MCMC_1)
-p + xlab("time")
-
-## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-set.seed(7163)
-pred_MCMC_2 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp, quantiles = NULL)
-plot(pred_MCMC_2, make_gg = FALSE,
-     xlab = "Time (min)", ylab = "logN")
-
-## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-set.seed(7163)
-pred_MCMC_3 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp, n_simulations = 200)
-p <- plot(pred_MCMC_3)
-p + ylab("logN")
-
-## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-set.seed(7163)
-pred_MCMC_4 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp, quantiles = c(0, 95))
-p <- plot(pred_MCMC_4)
-p + ylab("logN")
-
-## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-library(MASS)
-sample_iso <- mvrnorm(1000, coef(iso_fit$nls), vcov(iso_fit$nls))
-
-## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-set.seed(918734)
-times <- seq(0, 6, length = 50)
-dummy_temp <- data.frame(time = c(0, 3, 4, 6), temperature = c(80, 110, 110, 80))
-pred_int_iso <- predict_inactivation_MCMC(iso_fit, dummy_temp,
-                                          times = times,
-                                          additional_pars = c(N0 = 1e5))
-p <- plot(pred_int_iso)
-p + xlab("time")
-
-## ---- fig.width=6, fig.height=4, fig.align='center'----------------------
-set.seed(918734)
-dummy_temp <- data.frame(time = c(0, 1, 4, 6), temperature = c(80, 110, 110, 80))
-pred_int_MCMC <- predict_inactivation_MCMC(MCMC_fit, dummy_temp)
-p <- plot(pred_int_MCMC)
-p + xlab("time")
 

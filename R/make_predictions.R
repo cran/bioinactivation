@@ -83,6 +83,7 @@
 #' ## Show the results
 #' head(prediction_results$simulation)
 #' plot(prediction_results)
+#' time_to_logreduction(1.5, prediction_results)
 #'
 #' ## END EXAMPLE 1 -----------
 #'

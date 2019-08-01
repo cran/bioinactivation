@@ -329,7 +329,7 @@ example_model <- "Geeraerd"
 `times` is a numeric vector which specifies the values of time when results will be returned. It does not define the points at which the numerical integration is done, so changing it does not affect the values calculated at individual time points. An arbitrary equally spaced vector will be used for this example.
 
 ```{r}
-times <- seq(0, 5, length=100)
+times <- seq(0, 4.5, length=100)
 ```
 
 `parms` is a named numeric vector specifying the values of the model parameters, as well as the initial values of the model variables. A call to the function `get_model_data()` with a valid model identifier as an input argument provides several data concerning this model as a list. Namely, its parameters and variables.
@@ -343,7 +343,7 @@ print(model_data$variables)
 The input argument `parms` must provide values for every degree of freedom of the model, i.e. model parameters and variables. The names of the model parameters must be identical to those provided by the function `get_model_data()`. On the other hand, the names assigned to the initial values of the model variables must be equal to the ones provided by `get_model_data()` plus a character `"0"`. For instance, the initial value for the variable named `N` needs to be labeled `"N0"`.
 
 ```{r}
-model_parms <- c(D_R = 1,
+model_parms <- c(D_R = 3,
                  z = 10,
                  N_min = 1e2,
                  temp_ref = 100,
@@ -356,11 +356,12 @@ The last input variable required for the function is a data frame defining a dis
 
 Predictions for isothermal conditions can also be calculated using this function. In this case, a constant temperature profile has to be defined.
 
-A temperature profile with a constant slope of 10ºC/min ranging between 70 and 120ºC will be used for the prediction.
+A temperature profile with a constant slope ranging between 70 and 120ºC will be used for the prediction.
 
 ```{r, fig.width=6, fig.height=4, fig.align='center'}
-temperature_profile <- data.frame(time = c(0, 5),
+temperature_profile <- data.frame(time = c(0, 4.5),
                                   temperature = c(70, 120))
+
 plot(temperature_profile, type = "l")
 title("Example temperature profile")
 ```
@@ -417,7 +418,7 @@ plot(prediction_results, make_gg = FALSE,
 The implementation of the Geeraerd model allows to model inactivation process without shoulder and/or tail effects. For the model without shoulder, assign zero to the parameter `C_c0`:
 
 ```{r, fig.width=6, fig.height=4, fig.align='center'}
-parms_no_shoulder <- c(D_R = 1,
+parms_no_shoulder <- c(D_R = 3,
                        z = 10,
                        N_min = 100,
                        temp_ref = 100,
@@ -436,7 +437,7 @@ Although the effect is not fully clear with the temperature profile used due to 
 The model without tail effect can be obtained by assigning zero to `N_min`.
 
 ```{r, fig.width=6, fig.height=4, fig.align='center'}
-parms_no_tail <- c(D_R = 1,
+parms_no_tail <- c(D_R = 3,
                    z = 10,
                    N_min = 0,
                    temp_ref = 100,
@@ -601,10 +602,10 @@ The inactivation model is specified by the character variable `simulation_model`
 get_model_data()
 ```
 
-The Weibull-Peleg model is used in this example.
+The Weibull-Mafart model is used in this example.
 
 ```{r}
-simulation_model <- "Peleg"
+simulation_model <- "Mafart"
 ```
 
 The temperature profile of the experiment is given by the data frame `temp_profile`, which provides the values of the temperature at discrete time points. Temperatures at time points not included in `temp_profile` are calculated by linear interpolation. The `dynamic_inactivation` data set includes the temperature of each observation. Hence, the temperature profile defined by this observations is used for the adjustment.
@@ -623,26 +624,29 @@ model_data$parameters
 model_data$variables
 ```
 
-The degrees of freedom (parameters or inial values of variables) known are defined through the named list `known_parameters`. The names of known model parameters need to be identical to those provided by the function `get_model_data()`. The names of known initial values must be equal to the variable name provided by `get_model_data()` plus a caracter zero (`"0"`). In this example, solely the parameter *temp_crit* will be considered as known.
+The degrees of freedom (parameters or inial values of variables) known are defined through the named list `known_parameters`. The names of known model parameters need to be identical to those provided by the function `get_model_data()`. The names of known initial values must be equal to the variable name provided by `get_model_data()` plus a caracter zero (`"0"`). In the specific casee of the initial count, if the parameters are called `N0`, the model will estimate the microbial count. If they are named `logN0`, the log-microbial count will be estimated. In this example, solely the parameter *temp_ref* will be considered as known. This parameter is usually considered fixed for microbial inactivation.
 
 ```{r}
-known_params = c(temp_crit = 100)
+known_params = c(temp_ref = 90)
 ```
 
 The rest of the degrees of freedom are adjusted to the experimental data.
 The fitting algorithm requires the definition of starting points for the adjustment of unknown parameters, as well as upper and lower bounds. This information is passed by the input arguments `starting_points`, `upper_bounds` and `lower_bounds`, which share format with the input argument `known_params`. In case of unbounded variables, `+Inf` or `-Inf` must be assigned to the desired entries of `upper_bounds` or `lower_bounds`.
 
 ```{r}
-starting_points <- c(n = 1,
-                     k_b = 0.25,
-                     N0 = 1e+05)
-upper_bounds <- c(n = 2,
-                  k_b = 1,
-                  N0 = Inf)
+starting_points <- c(delta_ref = 10,
+                     p = 1,
+                     z = 10,
+                     logN0 = 5)
+upper_bounds <- c(delta_ref = 20,
+                  p = 2,
+                  z = 20,
+                  logN0 = Inf)
 
-lower_bounds <- c(n = 0,
-                  k_b = 0,
-                  N0 = 1e4)
+lower_bounds <- c(delta_ref = 5,
+                  p = .5,
+                  z = 5,
+                  logN0 = 4)
 ```
 
 Unrealistic initial points for the adjustment will cause the fitting algorithm to fail. Realistic initial points can be obtained from experience, literature or by testing different predictions using `predict_inactivation()`.
@@ -775,129 +779,6 @@ The base R graph can be generated including the argument `make_gg = FALSE`.
 ```{r, fig.width=6, fig.height=4, fig.align='center'}
 plot(MCMC_fit, make_gg = FALSE,
      xlab = "Time (min)", ylab = "logN")
-```
-
-## Generation of prediction intervals using Monte Carlo methods
-
-__bioinactivation__ includes the function `predict_inactivation_MCMC()`, which allows the generation of prediction intervals following a Monte Carlo approach. This function has six input arguments, four of which are optional:
-
-* `fit_object`,
-* `temp_profile`,
-* `n_simulations` (optional),
-* `times` (optional),
-* `quantiles` (optional) and
-* `additional_pars` (optional).
-
-The argument `fit_object` supplies the fit object to use for the genration of the prediction interval. The function is able to generate prediction intervals from objects of classes `IsoFitInactivation`, `FitInactivation` and `FitInactivationMCMC`. The algorithm for the generation of the prediction interval differs if the model was fitted using non-linear regression (`IsoFitInactivation` and `FitInactivation`) or MCMC (`FitInactivationMCMC`).
-
-On every case, the algorithm is based on a random sampling of the model parameters adjusted. For objects of classes `IsoFitInactivation` and `FitInactivation` it is considered that the model parameters follow a multivariate normal distribution. On the other hand, the sampling of objects of class `FitInactivationMCMC` is based on the iterations performed by the `modMCMC()` function. One example will be presented for each one of this three cases.
-
-The object `dynamic_fit` of class `FitInactivation` will be used first. The `modFit()` function provides estimates of the model parameters as well as an estimation of the unscaled covariance matrix. The `predict_inactivation_MCMC()` function generates a random sampling of the model parameters using the `mvrnorm` function from the `MASS` package (Venables and Ripley, 2002).
-
-```{r, fig.width=6, fig.height=4, fig.align='center'}
-library(MASS)
-sP <- summary(dynamic_fit)
-sample_iso <- mvrnorm(1000, coef(dynamic_fit$fit_results), sP$cov.unscaled)
-
-ggplot(as.data.frame(sample_iso)) +
-    geom_point(aes(x = N0, y = k_b), alpha = 0.5, size = 3) +
-    ggtitle("Example of multivariate normal sampling")
-```
-
-Due to the hypothesis used, the sampling may produce negative values of the model parameters, producing spurious results. Samples with negative values of the model parameters are omitted.
-
-The temperature profile to use for the prediction is defined by the argument `temp_profile`. It must be a data frame with one column named `time` and another one named `temperature`. 
-
-```{r, fig.width=6, fig.height=4, fig.align='center'}
-dummy_temp <- data.frame(time = c(0, 1, 4, 6), temperature = c(80, 110, 110, 80))
-ggplot(dummy_temp) +
-    geom_line(aes(x = time, y = temperature)) +
-    ggtitle("Temperature profile used for the prediction interval")
-```
-
-The optional arugment `n_simulations` is an integer which defines the number of Monte Carlo predictions to be made for the generation of the prediction interval. The higher the uncertainty in the model parameters, the larger this argument must be to achieve convergence. By default, `n_simulations` = 100. 
-
-The optional argument `times` is a numeric vector which defines the time points at which the solution is calculated. The larger the length of this vector, the longer the computation time. On the other hand, if the length of this vector is excessively low, a rough prediction interval will be generated. By default, the time points used for the model fit will be reused.
-
-The generation of the prediction interval is based on the quantiles of the Monte Carlo simulations at individual time points. The quantiles to calculate are defined by the optional argument `quantiles`, which is a numeric vector. By default, this argument is set to 
-`quantiles = c(2.5, 97.5)` defining a prediction interval with at 0.95 confidence level. In case `quantiles = NULL`, no statistics are calculated and the results of all the Monte Carlo simulations are returned.
-
-The initial number of microorganism is not required for the adjustment of isothermal experiments. However, this parameter is required for the generation of prediction intervals. The argument `additional_pars` allows to include additional arguments originally not present in the model as a named numeric list.
-
-Firstly, a prediction interval will be generated from the `dynamic_fit` object with just the two mandatory arguments. 
-
-```{r}
-set.seed(7163)
-pred_MCMC_1 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp)
-head(pred_MCMC_1)
-```
-
-A data frame of class `PredInactivationMCMC` is returned. This object includes the mean and the median of the Monte Carlo simulations at each time point requested. Moreover, it includes the 0.025 and 0.975 quantiles defining a 0.95 prediction intervals. This object includes an S3 method for `plot()` which allows to visualize the prediction interval generated.
-
-```{r, fig.width=6, fig.height=4, fig.align='center'}
-p <- plot(pred_MCMC_1)
-p + xlab("time")
-```
-This plot shows the mean of the simulations as a dashed line, its median as a pointed line and the prediction interval generated as a blue ribbon. The differences in the mean and median by the end of the experiment suggest that the solutions are not normally distributed.
-
-The disperssion of the Monte Carlo simulations can be observed including the argument `quantiles = NULL`. Note that the `ggplot2` plot is not compatible with `PredInactivationMCMC` without the statistics calculated. On this case, the `base` plot system has to be used including the `make_gg = FALSE` argument in the call to the `plot()` function.
-
-```{r, fig.width=6, fig.height=4, fig.align='center'}
-set.seed(7163)
-pred_MCMC_2 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp, quantiles = NULL)
-plot(pred_MCMC_2, make_gg = FALSE,
-     xlab = "Time (min)", ylab = "logN")
-```
-
-The results show that a larger number of iterations of the Monte Carlo algorithm may be needed for the prediction interval to converge. Therefore, the `n_simulations` argument will be increased.
-
-```{r, fig.width=6, fig.height=4, fig.align='center'}
-set.seed(7163)
-pred_MCMC_3 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp, n_simulations = 200)
-p <- plot(pred_MCMC_3)
-p + ylab("logN")
-```
-
-The function `predict_inactivation_MCMC()` allows the generation of assymetrical prediction intervals. In food microbiology, the more resistant microorganism are usually more relevant than the most weaks. A one-sided prediction interval can be generated by defining `quantiles = c(0, 95)`.
-
-```{r, fig.width=6, fig.height=4, fig.align='center'}
-set.seed(7163)
-pred_MCMC_4 <- predict_inactivation_MCMC(dynamic_fit, dummy_temp, quantiles = c(0, 95))
-p <- plot(pred_MCMC_4)
-p + ylab("logN")
-```
-
-The sampling generated for objects of class `iso_fit` follows the same hypothesis presented for instances of `FitInactivation`. The `nls` object provides estimates of the model parameters as well as an estimation of the model covariances. The `predict_inactivation_MCMC()` function generates a random sampling of the model parameters using the `mvrnorm` function from the `MASS` package (Venables and Ripley, 2002).
-
-```{r, fig.width=6, fig.height=4, fig.align='center'}
-library(MASS)
-sample_iso <- mvrnorm(1000, coef(iso_fit$nls), vcov(iso_fit$nls))
-```
-
-As already mentioned, the initial number of microorganisms is not needed for the performance of isothermal model adjustment. Nevertheless, this argument is required for the generation of prediction intervals. Therefore, the initial number of microorganisms must be passed to the function through the `additional_pars` argument.
-
-
-```{r, fig.width=6, fig.height=4, fig.align='center'}
-set.seed(918734)
-times <- seq(0, 6, length = 50)
-dummy_temp <- data.frame(time = c(0, 3, 4, 6), temperature = c(80, 110, 110, 80))
-pred_int_iso <- predict_inactivation_MCMC(iso_fit, dummy_temp,
-                                          times = times,
-                                          additional_pars = c(N0 = 1e5))
-p <- plot(pred_int_iso)
-p + xlab("time")
-```
-
-The instances of `FitInactivationMCMC` save the values of the model parameters used during the iterations of the Monte Carlo algorithm. Hence, instead of redoing the sampling, this values are reused for the generation of the prediction interval. The adventage of this method in comparison with the one used for models adjusted using non-linear regression is the omission of any hypothesis regarding the probability distribution of the model parameters.
-
-Appart from this difference in the hypothesis, the call to the function `predict_inactivation_MCMC()` is performed in the same way as for instances of `FitInactivation`.
-
-```{r, fig.width=6, fig.height=4, fig.align='center'}
-set.seed(918734)
-dummy_temp <- data.frame(time = c(0, 1, 4, 6), temperature = c(80, 110, 110, 80))
-pred_int_MCMC <- predict_inactivation_MCMC(MCMC_fit, dummy_temp)
-p <- plot(pred_int_MCMC)
-p + xlab("time")
 ```
 
 ## References

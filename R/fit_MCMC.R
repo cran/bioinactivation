@@ -73,6 +73,8 @@
 #'                                      # It is recommended to increase niter
 #'
 #' plot(MCMC_fit)
+#' goodness_of_fit(MCMC_fit)
+#' 
 #' ## END EXAMPLE 1 -----
 #'
 fit_inactivation_MCMC <- function(experiment_data, simulation_model, temp_profile,

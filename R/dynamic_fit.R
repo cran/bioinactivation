@@ -75,6 +75,7 @@
 #'                                         known_params)
 #'
 #' plot(dynamic_fit)
+#' goodness_of_fit(dynamic_fit)
 #'
 #' ## END EXAMPLE 1 -----
 #'
