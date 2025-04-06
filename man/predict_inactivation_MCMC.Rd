@@ -4,8 +4,14 @@
 \alias{predict_inactivation_MCMC}
 \title{Dynamic Prediction Intervals from a Monte Carlo Adjustment}
 \usage{
-predict_inactivation_MCMC(fit_object, temp_profile, n_simulations = 100,
-  times = NULL, quantiles = c(2.5, 97.5), additional_pars = NULL)
+predict_inactivation_MCMC(
+  fit_object,
+  temp_profile,
+  n_simulations = 100,
+  times = NULL,
+  quantiles = c(2.5, 97.5),
+  additional_pars = NULL
+)
 }
 \arguments{
 \item{fit_object}{An object of classes \code{FitInactivationMCMC},
@@ -33,11 +39,11 @@ the initial number of microorganism in an isothermal fit).}
 }
 \value{
 A data frame of class \code{PredInactivationMCMC}. On its first column,
-        time at which the calculation has been made is indicated.
-        If \code{quantiles = NULL}, the following columns contain the
-        results of each simulation. Otherwise, the second and third columns
-        provide the mean and median of the simulations at the given time
-        point. Following columns contain the quantiles of the results.
+time at which the calculation has been made is indicated.
+If \code{quantiles = NULL}, the following columns contain the
+results of each simulation. Otherwise, the second and third columns
+provide the mean and median of the simulations at the given time
+point. Following columns contain the quantiles of the results.
 }
 \description{
 Given a model adjustment of a dynamic microbial inactivation process

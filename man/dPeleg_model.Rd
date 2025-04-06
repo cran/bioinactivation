@@ -34,28 +34,29 @@ This function is compatible with the function
 }
 \section{Model Equation}{
 
-     \deqn{\frac{d(\mathrm{log}_{10}(S))}{dt}=-b(T) \cdot n \cdot
+\deqn{\frac{d(\mathrm{log}_{10}(S))}{dt}=-b(T) \cdot n \cdot
                 (- log10(S)/b(T))^{(n-1)/n)} }{
            d(log10(S))/dt = -b * n *( - log10(S)/b )^( (n-1)/n)}
 
-     \deqn{b(T) = \mathrm{ln}(1 + exp( k_b*(T - T_{crit}) ))}{
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ \deqn{b(T) = \mathrm{ln}(1 + exp( k_b*(T - T_{crit}) ))}{
            b(T) = ln( 1 + exp( k_b*(T - T_crit) ) )}
+}\if{html}{\out{</div>}}
 }
 
 \section{Model Parameters}{
 
-     \itemize{
-         \item temp_crit: Temperature below which there is inactivation.
-         \item k_b: slope of the b ~ temp line for temperatures above the
-                    critical one.
-         \item n: shape factor of the Weibull distribution.
-         }
+\itemize{
+\item temp_crit: Temperature below which there is inactivation.
+\item k_b: slope of the b ~ temp line for temperatures above the
+critical one.
+\item n: shape factor of the Weibull distribution.
+}
 }
 
 \section{Note}{
 
-     For logS=0, dlogS = 0 unless n=1. Hence, a small shift needs to be introduced
-     to logS.
+For logS=0, dlogS = 0 unless n=1. Hence, a small shift needs to be introduced
+to logS.
 }
 
 \seealso{

@@ -2,8 +2,8 @@
 #' Fitting of Dynamic Inactivation Models
 #'
 #' Fits the parameters of an inactivation model to experimental data.
-#' The function \code{\link{modFit}} of the package \code{\link{FME}} is
-#' used for the adjustment.
+#' The function [FME::modFit] is
+#' used for the fitting.
 #'
 #' @param experiment_data data frame with the experimental data to be adjusted.
 #'        It must have a column named \dQuote{time} and another one named
@@ -25,13 +25,14 @@
 #'        default.
 #' @param tol0 numeric. Observations at time 0 make Weibull-based models singular.
 #'        The time for observatins taken at time 0 are changed for this value.
-#' @param ... further arguments passed to \code{\link{modFit}}
+#' @param ... further arguments passed to [FME::modFit]
 #'
-#' @importFrom dplyr mutate_
+#' @importFrom dplyr mutate
 #' @importFrom dplyr %>%
-#' @importFrom dplyr select_
+#' @importFrom dplyr select
 #' @importFrom FME modFit
 #' @importFrom lazyeval interp
+#' @importFrom rlang .data
 #'
 #' @return A list of class \code{FitInactivation} with the following items:
 #'      \itemize{
@@ -43,8 +44,6 @@
 #'          }
 #'
 #' @export
-#'
-#' @seealso \code{\link{modFit}}
 #'
 #' @examples
 #' ## EXAMPLE 1 ------
@@ -93,13 +92,13 @@ fit_dynamic_inactivation <- function(experiment_data, simulation_model, temp_pro
 
     if (minimize_log) {
 
-        data_for_fit <- mutate_(experiment_data,
-                                logN = interp(~log10(N), N=as.name("N")))
+        data_for_fit <- mutate(experiment_data,
+                               logN = log10(.data$N))
 
-        data_for_fit <- select_(data_for_fit, as.name("time"), as.name("logN"))
+        data_for_fit <- select(data_for_fit, "time", "logN")
 
     } else {
-        data_for_fit <- select_(experiment_data, as.name("time"), as.name("N"))
+        data_for_fit <- select(experiment_data, "time", "N")
     }
 
     #- Add a small tolerance to data at time 0 to avoid singularities

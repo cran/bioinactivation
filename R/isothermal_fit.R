@@ -158,9 +158,13 @@ get_isothermal_model_data <- function(model_name = "valids") {
            Metselaar = list(params = c("D_R", "z", "p", "temp_ref", "Delta"),
                             formula_iso = "Metselaar_iso(time, temp, D_R, z, p, Delta, temp_ref)",
                             prediction = "Metselaar_iso"
-                            ),
+           ),
+           Geeraerd_oneStep = list(params = c("logC0", "a", "z"),
+                            formula_iso = "Geeraerd_iso(time, temp, logC0, a, z)",
+                            prediction = "Geeraerd_iso"
+           ),
 
-           valids = c("Mafart", "Peleg", "Bigelow", "Arrhenius", "Metselaar")
+           valids = c("Mafart", "Peleg", "Bigelow", "Arrhenius", "Metselaar", "Geeraerd")
            )
 
 }

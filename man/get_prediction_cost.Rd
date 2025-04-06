@@ -4,8 +4,13 @@
 \alias{get_prediction_cost}
 \title{Error of the Prediction of Microbial Inactivation}
 \usage{
-get_prediction_cost(data_for_fit, temp_profile, simulation_model, P,
-  known_params)
+get_prediction_cost(
+  data_for_fit,
+  temp_profile,
+  simulation_model,
+  P,
+  known_params
+)
 }
 \arguments{
 \item{data_for_fit}{A data frame with the experimental data to fit. It
@@ -24,16 +29,12 @@ must have a column named \dQuote{time} and another named
 not adjusted)}
 }
 \value{
-An instance of \code{\link{modCost}} with the error of the
-        prediction.
+An instance of \link[FME:modCost]{FME::modCost} with the error of the
+prediction.
 }
 \description{
 Calculates the error of the prediction of microbial inactivation for
 the chosen inactivation model and the given parameters with respect to
 the experimental data provided.
-This function is compatible with the function
-\code{\link{fit_dynamic_inactivation}}.
-}
-\seealso{
-\code{\link{modCost}}, \code{\link{fit_dynamic_inactivation}}
+This function is compatible with the function \link{fit_dynamic_inactivation}.
 }

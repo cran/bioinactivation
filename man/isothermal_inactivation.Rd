@@ -4,7 +4,9 @@
 \name{isothermal_inactivation}
 \alias{isothermal_inactivation}
 \title{Example Isothermal Inactivation of a Microorganis}
-\format{A data frame with 36 rows and 3 variables.}
+\format{
+A data frame with 36 rows and 3 variables.
+}
 \usage{
 data(isothermal_inactivation)
 }
@@ -14,9 +16,9 @@ microorganism.
 }
 \details{
 \itemize{
-  \item time: Time in minutes of the measurement.
-  \item temp: Temperature at which the experiment was made.
-  \item log_diff: Logarithmic difference.
+\item time: Time in minutes of the measurement.
+\item temp: Temperature at which the experiment was made.
+\item log_diff: Logarithmic difference.
 }
 }
 \keyword{datasets}

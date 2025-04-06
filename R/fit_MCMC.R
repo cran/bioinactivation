@@ -3,7 +3,7 @@
 #'
 #' Fits the parameters of an inactivation model to experimental using
 #' the Markov Chain Monte Carlo fitting algorithm implemented in
-#' the function \code{\link{modMCMC}} of the package \code{\link{FME}}.
+#' the function [FME::modMCMC].
 #'
 #' @param experiment_data data frame with the experimental data to be adjusted.
 #'        It must have a column named \dQuote{time} and another one named
@@ -22,15 +22,16 @@
 #'        adjustable) model parameters.
 #' @param minimize_log logical. If \code{TRUE}, the adjustment is based on the
 #'        minimization of the error of the logarithmic count.
-#' @param ... other arguments for \code{\link{modMCMC}}.
+#' @param ... other arguments for [FME::modMCMC].
 #' @param tol0 numeric. Observations at time 0 make Weibull-based models singular.
 #'        The time for observatins taken at time 0 are changed for this value.
 #'
-#' @importFrom dplyr mutate_
+#' @importFrom dplyr mutate
 #' @importFrom dplyr %>%
-#' @importFrom dplyr select_
+#' @importFrom dplyr select
 #' @importFrom FME modMCMC
 #' @importFrom lazyeval interp
+#' @importFrom rlang .data
 #'
 #' @return A list of class \code{FitInactivationMCMC} with the following items:
 #'      \itemize{
@@ -74,7 +75,7 @@
 #'
 #' plot(MCMC_fit)
 #' goodness_of_fit(MCMC_fit)
-#' 
+#'
 #' ## END EXAMPLE 1 -----
 #'
 fit_inactivation_MCMC <- function(experiment_data, simulation_model, temp_profile,
@@ -92,13 +93,13 @@ fit_inactivation_MCMC <- function(experiment_data, simulation_model, temp_profil
 
     if (minimize_log) {
 
-        data_for_fit <- mutate_(experiment_data,
-                                logN = interp(~log10(N), N=as.name("N")))
+        data_for_fit <- mutate(experiment_data,
+                                logN = log10(.data$N))
 
-        data_for_fit <- select_(data_for_fit, as.name("time"), as.name("logN"))
+        data_for_fit <- select(data_for_fit, "time", "logN")
 
     } else {
-        data_for_fit <- select_(experiment_data, as.name("time"), as.name("N"))
+        data_for_fit <- select(experiment_data, "time", "N")
     }
 
     #- Add a small tolerance to data at time 0 to avoid singularities

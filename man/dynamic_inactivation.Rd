@@ -4,7 +4,9 @@
 \name{dynamic_inactivation}
 \alias{dynamic_inactivation}
 \title{Example Dynamic Inactivation of a Microorganis}
-\format{A data frame with 19 rows and 2 variables.}
+\format{
+A data frame with 19 rows and 2 variables.
+}
 \usage{
 data(dynamic_inactivation)
 }
@@ -14,9 +16,9 @@ microorganism.
 }
 \details{
 \itemize{
-  \item time: Time in minutes of the measurement.
-  \item N: Number of microorganism.
-  \item temperature: Observed temperature.
+\item time: Time in minutes of the measurement.
+\item N: Number of microorganism.
+\item temperature: Observed temperature.
 }
 }
 \keyword{datasets}

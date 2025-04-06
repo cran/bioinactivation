@@ -4,7 +4,9 @@
 \name{laterosporus_iso}
 \alias{laterosporus_iso}
 \title{Example Isothermal Inactivation of a Laterosporus}
-\format{A data frame with 52 rows and 3 variables.}
+\format{
+A data frame with 52 rows and 3 variables.
+}
 \usage{
 data(laterosporus_iso)
 }
@@ -14,9 +16,9 @@ Laterosporus.
 }
 \details{
 \itemize{
-  \item time: Time in minutes of the measurement.
-  \item temp: Temperature at which the experiment was made.
-  \item log_diff: Logarithmic difference.
+\item time: Time in minutes of the measurement.
+\item temp: Temperature at which the experiment was made.
+\item log_diff: Logarithmic difference.
 }
 }
 \keyword{datasets}

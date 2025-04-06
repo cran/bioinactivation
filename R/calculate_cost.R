@@ -4,8 +4,7 @@
 #' Calculates the error of the prediction of microbial inactivation for
 #' the chosen inactivation model and the given parameters with respect to
 #' the experimental data provided.
-#' This function is compatible with the function
-#' \code{\link{fit_dynamic_inactivation}}.
+#' This function is compatible with the function [fit_dynamic_inactivation].
 #'
 #' @param data_for_fit A data frame with the experimental data to fit. It
 #'        must contain a column named \dQuote{time} and another one named
@@ -21,10 +20,8 @@
 #' @importFrom FME modCost
 #' @importFrom stats complete.cases
 #'
-#' @return An instance of \code{\link{modCost}} with the error of the
+#' @return An instance of [FME::modCost] with the error of the
 #'         prediction.
-#'
-#' @seealso \code{\link{modCost}}, \code{\link{fit_dynamic_inactivation}}
 #'
 get_prediction_cost <- function(data_for_fit, temp_profile,
                                 simulation_model,

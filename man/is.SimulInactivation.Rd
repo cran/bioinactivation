@@ -11,7 +11,7 @@ is.SimulInactivation(x)
 }
 \value{
 A logic specifying whether \code{x} is of class
-        \code{SimulInactivation}
+\code{SimulInactivation}
 }
 \description{
 Tests if an object is of class \code{SimulInactivation}.

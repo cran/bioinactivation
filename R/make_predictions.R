@@ -8,7 +8,7 @@
 #' The value of the temperature is calculated at each value of time by
 #' linear interpolation of the values provided by the input argument
 #' \code{temp_profile}.
-#' The function \code{\link{ode}} of the package \code{\link{deSolve}} is
+#' The function [deSolve::ode] is
 #' used for the resolution of the differential equation.
 #'
 #' @param simulation_model character identifying the model to be used.
@@ -21,11 +21,12 @@
 #' @param tol0 numeric. Observations at time 0 make Weibull-based models singular.
 #'        The time for observatins taken at time 0 are changed for this value.
 #'        By default (`tol0 = 1e-5`)
-#' @param ... Additional arguments passed to \code{\link{ode}}.
+#' @param ... Additional arguments passed to [deSolve::ode].
 #'
 #' @importFrom deSolve ode
-#' @importFrom dplyr mutate_
+#' @importFrom dplyr mutate
 #' @importFrom lazyeval interp
+#' @importFrom rlang .data
 #'
 #' @return A list of class \code{SimulInactivation} with the results. It has
 #'         the following entries:
@@ -48,8 +49,6 @@
 #'
 #'
 #' @export
-#'
-#' @seealso \code{\link{ode}}, \code{\link{get_model_data}}
 #'
 #' @examples
 #' ## EXAMPLE 1 -----------
@@ -159,19 +158,20 @@ predict_inactivation <- function(simulation_model, times, parms, temp_profile,
 
     if ("N" %in% names(out)) {
 
-        out <- mutate_(out,
-                       logN = interp(~log10(N), N=as.name("N")),
-                       S = interp(~N/parms[["N0"]], N=as.name("N")))
+        out <- mutate(out,
+                      logN = log10(.data$N),
+                      S = .data$N/parms[["N0"]]
+                      )
 
-        out <- mutate_(out, logS = interp(~log10(S), S=as.name("S")))
+        out <- mutate(out, logS = log10(.data$S))
 
     } else {
 
-        out <- mutate_(out,
-                       S = interp(~10^logS, logS=as.name("logS")),
-                       N = interp(~S*parms[["N0"]], S=as.name("S")))
+        out <- mutate(out,
+                      S = 10^.data$logS,
+                      N = .data$S*parms[["N0"]])
 
-        out <- mutate_(out, logN = interp(~log10(N), N=as.name("N")))
+        out <- mutate(out, logN = log10(.data$N))
 
     }
 

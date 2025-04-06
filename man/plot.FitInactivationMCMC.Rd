@@ -4,9 +4,16 @@
 \alias{plot.FitInactivationMCMC}
 \title{Plot of FitInactivationMCMC Object}
 \usage{
-\method{plot}{FitInactivationMCMC}(x, y = NULL, ..., make_gg = TRUE,
-  plot_temp = FALSE, label_y1 = "logN", label_y2 = "Temperature",
-  ylims = NULL)
+\method{plot}{FitInactivationMCMC}(
+  x,
+  y = NULL,
+  ...,
+  make_gg = TRUE,
+  plot_temp = FALSE,
+  label_y1 = "logN",
+  label_y2 = "Temperature",
+  ylims = NULL
+)
 }
 \arguments{
 \item{x}{the object of class \code{FitInactivation} to plot.}
@@ -31,7 +38,7 @@ y-axis. \code{NULL} by default (0, max_count).}
 }
 \value{
 If \code{make_gg = FALSE}, the plot is created. Otherwise, an
-        an instance of \code{ggplot} is generated, printed and returned.
+an instance of \code{ggplot} is generated, printed and returned.
 }
 \description{
 Plots a comparison between the experimental data provided and the prediction

@@ -11,9 +11,9 @@ get_isothermal_model_data(model_name = "valids")
 }
 \value{
 If \code{model_name} is missing, a list of the valid model keys.
-        If \code{model_name} is not a valid key, NULL is returned.
-        Otherwise, a list with the parameters of the model selected and its
-        \code{formula} for the nonlinear adjustment.
+If \code{model_name} is not a valid key, NULL is returned.
+Otherwise, a list with the parameters of the model selected and its
+\code{formula} for the nonlinear adjustment.
 }
 \description{
 Provides information of the models implemented for fitting of isothermal

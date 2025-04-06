@@ -113,26 +113,39 @@ Metselaar_iso <- function(time, temp, D_R, z, p, Delta, temp_ref) {
     return(log_diff)
 }
 
-### ---------------------------------------------------------- ###
-### SECONDARY  MODEL FOR N_RES IS NEEDED  TO DEVELOP THE MODEL ###
+#' Isothermal Geeraerd Model
+#'
+#' Returns the predicted logarithmic reduction in microbial cont according
+#' to Geeraerd's model.
+#' The isothermal prediction is calculated by analytical integration of the
+#' ode for constant temperature
+#'
+#' @param time numeric vector with the treatment time
+#' @param temp numeric vector with the treatment temperature
+#' @param logC0 model parameter describing the shoulder length
+#' @param a model parameter describing the intercept of the relation
+#' @param z z-value
+#'
+Geeraerd_iso <- function(time, temp, logC0, a, z) {
 
-# #' Isothermal Geeraerd Model
-# #'
-# #' Returns the predicted logarithmic reduction in microbial cont according
-# #' to Geeraerd's model.
-# #' The isothermal prediction is calculated by analytical integration of the
-# #' ode for constant temperature
-# #'
-# Geeraerd_iso <- function(time, temp, C_c0, N_min, z, D_R, temp_ref) {
-#
-#     D_T <- D_R * 10^( (temp_ref - temp)/z )
-#     k_max <- 1/D_T
-#     N0 <- 1e6
-#     C1 <- (C_c0 + 1)*N0 - N_min
-#     N <- C1/(C_c0+exp(k_max*time)) + N_min*exp(k_max*time)/(C_c0+exp(k_max*time))
-#     log_diff <- log10(N/N0)
-#     return(log_diff)
-#
-#
-# }
+  # browser()
+
+  b <- log(10)/z
+
+  ## Secondary models
+
+  SL <- log(10^logC0 + 1)/exp(a + b*temp)
+  logk <- a + b*temp
+  k <- exp(logk)
+
+  logN0 <- 8
+
+  ## Primary model
+
+  N <- 10^logN0 * exp(-k*time) * exp(k*SL) / ( 1 + ( exp(k*SL) - 1 )*exp(-k*time) )
+  log_diff <- log10(N) - logN0
+
+  return(log_diff)
+
+}
 

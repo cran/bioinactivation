@@ -35,27 +35,28 @@ This function is compatible with the function
 \section{Model Equation}{
 
 
-     \deqn{\frac{dN}{dt} = -N \cdot p \cdot (1/\delta)^p \cdot t^{p-1} }{
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ \deqn{\frac{dN}{dt} = -N \cdot p \cdot (1/\delta)^p \cdot t^{p-1} }{
            dN/dt = -N * p * (1/delta)^p * t^(p-1)}
 
-     \deqn{\delta(T) = \delta_{ref} \cdot 10^{- (T-T_ref)/z} }{
+ \deqn{\delta(T) = \delta_{ref} \cdot 10^{- (T-T_ref)/z} }{
            delta(T) = delta_ref * 10^(- (T-T_ref)/z )}
+}\if{html}{\out{</div>}}
 }
 
 \section{Model Parameters}{
 
-     \itemize{
-         \item temp_ref: Reference temperature for the calculation.
-         \item delta_ref: Value of the scale factor at the reference temperature.
-         \item z: z-value.
-         \item p: shape factor of the Weibull distribution.
-         }
+\itemize{
+\item temp_ref: Reference temperature for the calculation.
+\item delta_ref: Value of the scale factor at the reference temperature.
+\item z: z-value.
+\item p: shape factor of the Weibull distribution.
+}
 }
 
 \section{Note}{
 
-     For t=0, dN = 0 unless n=1. Hence, a small shift needs to be introduced
-     to t.
+For t=0, dN = 0 unless n=1. Hence, a small shift needs to be introduced
+to t.
 }
 
 \seealso{

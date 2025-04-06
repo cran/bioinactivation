@@ -19,7 +19,7 @@ time.}
 }
 \value{
 The value of the first derivative of \eqn{N} at time \code{t} as a
-        list.
+list.
 }
 \description{
 Calculates the first derivative of the linearized version of Bigelow's model
@@ -36,17 +36,17 @@ This function is compatible with the function
 \section{Model Equation}{
 
 
-   \deqn{\frac{dN}{dt} = - N \frac {\mathrm{ln}(10)}{D_T(T)}}{
+\deqn{\frac{dN}{dt} = - N \frac {\mathrm{ln}(10)}{D_T(T)}}{
          dN/dt = - N * ln(10)/D_T(T)}
 }
 
 \section{Model parameters}{
 
-     \itemize{
-         \item temp_ref: Reference temperature for the calculation,
-         \item D_R: D-value at the reference temperature,
-         \item z: z value.
-         }
+\itemize{
+\item temp_ref: Reference temperature for the calculation,
+\item D_R: D-value at the reference temperature,
+\item z: z value.
+}
 }
 
 \seealso{

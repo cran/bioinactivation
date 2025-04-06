@@ -4,8 +4,12 @@
 \alias{check_model_params}
 \title{Correctness Check of Model Parameters}
 \usage{
-check_model_params(simulation_model, known_params, starting_points,
-  adjust_vars)
+check_model_params(
+  simulation_model,
+  known_params,
+  starting_points,
+  adjust_vars
+)
 }
 \arguments{
 \item{simulation_model}{character with a valid model key.}
@@ -24,10 +28,10 @@ fit)}
 Makes 3 checks of compatibility between the input parameters for the
 adjustment and the DOF of the inactivation model selected.
 \itemize{
-     \item Check of equal length of model DOF and input DOF. Raises a
-           warning if failed.
-     \item Check that every single one of the input DOF is a model DOF.
-           Raises a warning if failed.
-     \item Check that every single one of the model DOF are defined as
-           an input DOF.}
+\item Check of equal length of model DOF and input DOF. Raises a
+warning if failed.
+\item Check that every single one of the input DOF is a model DOF.
+Raises a warning if failed.
+\item Check that every single one of the model DOF are defined as
+an input DOF.}
 }

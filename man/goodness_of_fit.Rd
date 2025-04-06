@@ -11,16 +11,16 @@ goodness_of_fit(object)
 }
 \description{
 Generates a table with several statistical indexes describing the
-quality of the model fit: 
-        \itemize{
-          \item ME: Mean Error.
-          \item RMSE: Root Mean Squared Error.
-          \item loglik: log-likelihood.
-          \item AIC: Akaike Information Criterion.
-          \item AICc: Akaike Information Criterion with correction for 
-          finite sample size.
-          \item BIC: Bayesian Infromation Criterion.
-          \item Af: Accuracy factor.
-          \item Bf: Bias factor.
-          }
+quality of the model fit:
+\itemize{
+\item ME: Mean Error.
+\item RMSE: Root Mean Squared Error.
+\item loglik: log-likelihood.
+\item AIC: Akaike Information Criterion.
+\item AICc: Akaike Information Criterion with correction for
+finite sample size.
+\item BIC: Bayesian Infromation Criterion.
+\item Af: Accuracy factor.
+\item Bf: Bias factor.
+}
 }

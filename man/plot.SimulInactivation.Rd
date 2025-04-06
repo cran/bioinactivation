@@ -4,9 +4,16 @@
 \alias{plot.SimulInactivation}
 \title{Plot of SimulInactivation Object}
 \usage{
-\method{plot}{SimulInactivation}(x, y = NULL, ..., make_gg = TRUE,
-  plot_temp = FALSE, label_y1 = "logN", label_y2 = "Temperature",
-  ylims = NULL)
+\method{plot}{SimulInactivation}(
+  x,
+  y = NULL,
+  ...,
+  make_gg = TRUE,
+  plot_temp = FALSE,
+  label_y1 = "logN",
+  label_y2 = "Temperature",
+  ylims = NULL
+)
 }
 \arguments{
 \item{x}{The object of class \code{SimulInactivation} to plot.}
@@ -31,7 +38,7 @@ y-axis. \code{NULL} by default (0, max_count).}
 }
 \value{
 If \code{make_gg = FALSE}, the plot is created. Otherwise, an
-        an instance of \code{ggplot} is generated, printed and returned.
+an instance of \code{ggplot} is generated, printed and returned.
 }
 \description{
 Plots the predicted evolution of the logarithmic count with time for an

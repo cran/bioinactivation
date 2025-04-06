@@ -11,7 +11,7 @@ is.IsoFitInactivation(x)
 }
 \value{
 A logic specifying whether \code{x} is of class
-        \code{IsoFitInactivation}
+\code{IsoFitInactivation}
 }
 \description{
 Tests if an object is of class \code{IsoFitInactivation}.

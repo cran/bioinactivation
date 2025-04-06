@@ -21,7 +21,7 @@ WeibullMafart_iso(time, temp, delta_ref, z, p, temp_ref)
 }
 \value{
 A numeric with the predicted logarithmic reduction
-        (\eqn{log10(N/N0)}).
+(\eqn{log10(N/N0)}).
 }
 \description{
 Returns the predicted logarithmic reduction in microbial count according

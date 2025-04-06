@@ -19,7 +19,7 @@ time.}
 }
 \value{
 The value of the first derivative of \eqn{N} at time \code{t} as a
-        list.
+list.
 }
 \description{
 Calculates the first derivative of the Arrhenius model with log-linear
@@ -34,17 +34,17 @@ This function is compatible with the function
 \section{Model Equation}{
 
 
-   \deqn{\frac{dN}{dt} = - k * N }{
+\deqn{\frac{dN}{dt} = - k * N }{
          dN/dt = - k * n}
 }
 
 \section{Model parameters}{
 
-     \itemize{
-         \item temp_ref: Reference temperature for the calculation,
-         \item k_ref: inactivation rate at the ref. temp.
-         \item Ea: Activation energy.
-         }
+\itemize{
+\item temp_ref: Reference temperature for the calculation,
+\item k_ref: inactivation rate at the ref. temp.
+\item Ea: Activation energy.
+}
 }
 
 \seealso{

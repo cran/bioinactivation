@@ -13,8 +13,8 @@ temperature.}
 }
 \value{
 a list with with two elements: \itemize{
-     \item temp, the interpolator of the temperature and
-     \item dtemp, the interpolator of its first derivative
+\item temp, the interpolator of the temperature and
+\item dtemp, the interpolator of its first derivative
 }
 }
 \description{

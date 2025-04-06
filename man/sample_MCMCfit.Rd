@@ -19,12 +19,12 @@ to perform.}
 }
 \value{
 Returns a list with 4 components.
-        \itemize{
-             \item par_sample: data frame with the parameter sample.
-             \item simulation_model: model key for the simulation
-             \item known_pars: parameters of the model known
-             \item times: points where the calculation is made.
-             }
+\itemize{
+\item par_sample: data frame with the parameter sample.
+\item simulation_model: model key for the simulation
+\item known_pars: parameters of the model known
+\item times: points where the calculation is made.
+}
 }
 \description{
 Function to be called by \code{\link{predict_inactivation_MCMC}}. Produces

@@ -18,7 +18,7 @@ validity is performed (see section \bold{Model Parameters}).}
 }
 \value{
 A list with the value of the first derivatives of N and C_c at time
-        \code{t}.
+\code{t}.
 }
 \description{
 Calculates the first derivative of the Geeraerd's model at a given time for
@@ -30,38 +30,39 @@ This function is compatible with the function
 }
 \section{Model Equation}{
 
-     \deqn{\frac{dN}{dt} = -N \cdot k_{max} \cdot \alpha \cdot \gamma}{
+\deqn{\frac{dN}{dt} = -N \cdot k_{max} \cdot \alpha \cdot \gamma}{
            dN/dt = - N * k_max * \alpha * \gamma}
 
-     \deqn{\frac{dC_c}{dt} = - C_c \cdot k_{max}}{
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ \deqn{\frac{dC_c}{dt} = - C_c \cdot k_{max}}{
            dC_c/dt = - C_c * k_max}
 
-     \deqn{\alpha = \frac {1}{1+C_c}}{
+ \deqn{\alpha = \frac {1}{1+C_c}}{
            \alpha = 1/(1+C_c)}
 
-     \deqn{\gamma = 1 - \frac{N_{res}}{N}}{
+ \deqn{\gamma = 1 - \frac{N_{res}}{N}}{
            \gamma = 1 - N_res/N}
 
-     \deqn{k_{max} = \frac{1}{D_T}}{k_max = 1/D_T}
+ \deqn{k_{max} = \frac{1}{D_T}}{k_max = 1/D_T}
 
-     \deqn{log_{10}D_T = log_{10}D_R + \frac{T_R-T}{z}}{
+ \deqn{log_{10}D_T = log_{10}D_R + \frac{T_R-T}{z}}{
             log(D_T) = log(D_R) + (T_R-T)/z}
+}\if{html}{\out{</div>}}
 }
 
 \section{Model Parameters}{
 
-     \itemize{
-         \item temp_ref: Reference temperature for the calculation,
-         \item D_R: D-value at the reference temperature,
-         \item z: z value,
-         \item N_min: Minimum value of N (defines the tail).
-         }
+\itemize{
+\item temp_ref: Reference temperature for the calculation,
+\item D_R: D-value at the reference temperature,
+\item z: z value,
+\item N_min: Minimum value of N (defines the tail).
+}
 }
 
 \section{Notes}{
 
-     To define the Geeraerd model without tail, assign \code{N_min = 0}.
-     For the model without shoulder, assign \code{C_0 = 0}
+To define the Geeraerd model without tail, assign \code{N_min = 0}.
+For the model without shoulder, assign \code{C_0 = 0}
 }
 
 \seealso{

@@ -178,7 +178,7 @@ sample_MCMCfit <- function(MCMC_fit, times, n_simulations){
 #'
 #' It is assumed that the parameters follow a Multivariate Normal distribution
 #' with the mean and covariance matrix estimated by the adjustment. The function
-#' produces a random sample using the function \code{\link{mvrnorm}}.
+#' produces a random sample using the function [MASS::mvrnorm].
 #'
 #' @param iso_fit An object of class \code{FitInactivationMCMC} as generated
 #'        by \code{\link{fit_inactivation_MCMC}}.
@@ -200,8 +200,6 @@ sample_MCMCfit <- function(MCMC_fit, times, n_simulations){
 #' @importFrom MASS mvrnorm
 #' @importFrom stats coef
 #' @importFrom stats vcov
-#'
-#' @seealso \code{\link{mvrnorm}}
 #'
 sample_IsoFit <- function(iso_fit, times, n_simulations){
 
@@ -252,10 +250,10 @@ sample_IsoFit <- function(iso_fit, times, n_simulations){
 #' linear regression.
 #'
 #' It is assumed that the parameters follow a Multivariate Normal distribution
-#' with the mean the parameters estimated by \code{\link{modFit}}. The unscaled
-#' covariance matrix returned by \code{\link{modFit}} is used.
+#' with the mean the parameters estimated by [FME::modFit]. The unscaled
+#' covariance matrix returned by [FME::modFit] is used.
 #'
-#' The function produces a random sample using the function \code{\link{mvrnorm}}.
+#' The function produces a random sample.
 #'
 #' @param dynamic_fit An object of class \code{FitInactivationMCMC} as generated
 #'        by \code{\link{fit_inactivation_MCMC}}.

@@ -113,7 +113,7 @@ plot.SimulInactivation <- function(x, y=NULL, ...,
 #' @export
 #'
 #' @importFrom graphics plot lines title
-#' @importFrom dplyr mutate %>%
+#' @importFrom dplyr mutate %>% ungroup
 #' @importFrom lazyeval interp
 #' @importFrom ggplot2 aes_string ggplot geom_point geom_line facet_wrap
 #' @importFrom stats predict
@@ -147,6 +147,7 @@ plot.IsoFitInactivation <- function(x, y=NULL, ..., make_gg = FALSE) {
 
     } else {
         x$data %>%
+            ungroup() %>%
             mutate(prediction = predict(x$nls, newdata = x$data)) %>%
             ggplot(aes_string(x = "time")) +
                 geom_point(aes_string(y = "log_diff")) +

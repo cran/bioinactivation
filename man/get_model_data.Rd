@@ -12,20 +12,20 @@ get_model_data(simulation_model = NULL)
 }
 \value{
 If simulation_model is \code{NULL} or missing, a character vector of
-     possible names. Otherwise, a list including information of the relevant
-     function:
-     \itemize{
-         \item ode: Pointer to the function defining the model ode.
-         \item cost: Pointer to the function calculating the error of the
-               approximation.
-         \item dtemp: logical defining whether the function requires the
-                      definition of the first derivative of temperature.
-         \item variables: a character vector defining which entry variables
-                          are needed by the model.
-         \item variables_priv: for internal use only.
-         \item parameters: character vector with the parameters needed by
-                           the model.
-         }
+possible names. Otherwise, a list including information of the relevant
+function:
+\itemize{
+\item ode: Pointer to the function defining the model ode.
+\item cost: Pointer to the function calculating the error of the
+approximation.
+\item dtemp: logical defining whether the function requires the
+definition of the first derivative of temperature.
+\item variables: a character vector defining which entry variables
+are needed by the model.
+\item variables_priv: for internal use only.
+\item parameters: character vector with the parameters needed by
+the model.
+}
 }
 \description{
 Provides information about the function for dynamic predictions associated
@@ -41,5 +41,5 @@ For the adjustment of isothermal experiments with the function
 }
 \seealso{
 \code{\link{predict_inactivation}},
-         \code{\link{fit_dynamic_inactivation}}
+\code{\link{fit_dynamic_inactivation}}
 }

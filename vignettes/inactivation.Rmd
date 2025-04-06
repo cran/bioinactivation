@@ -67,6 +67,9 @@ The following plot illustrates the data contained in the data set.
 
 ```{r, fig.width=6, fig.height=4, fig.align='center'}
 library(ggplot2)
+library(purrr)
+library(tidyr)
+library(dplyr)
 ggplot(data = isothermal_inactivation) +
     geom_point(aes(x = time, y = log_diff, col = as.factor(temp))) +
     ggtitle("Example dataset: isothermal_inactivation")
@@ -201,12 +204,15 @@ This equation is based on the definition of a critical temperature ($T_c$). For 
 
 
 ```{r, echo=FALSE, fig.width=6, fig.height=4, fig.align='center'}
-Temperature <- seq(30, 80, length=100)
-b <- log( 1 + exp(0.3*(Temperature - 60)))
-b_1 <- log( 1 + exp(0.2*(Temperature - 60)))
-plot(Temperature, b, type = "l", col="red")
-lines(Temperature, b_1, type = "l", col = "blue")
-legend("topleft", c("k = 0.3","k = 0.2"), col=c("red", "blue"), lwd=1, cex = 1)
+
+tibble(
+  Temperature = seq(30, 80, length = 100),
+  `k = 0.3` = log( 1 + exp(0.3*(Temperature - 60))),
+  `k = 0.2` = log( 1 + exp(0.2*(Temperature - 60)))
+  ) %>%
+  pivot_longer(-Temperature, names_to = "k", values_to = "b") %>%
+  ggplot() +
+  geom_line(aes(x = Temperature, y = b, colour = k))
 ```
 
 #### Weibull-Peleg model for non-isothermal inactivation
@@ -362,8 +368,8 @@ A temperature profile with a constant slope ranging between 70 and 120ºC will b
 temperature_profile <- data.frame(time = c(0, 4.5),
                                   temperature = c(70, 120))
 
-plot(temperature_profile, type = "l")
-title("Example temperature profile")
+ggplot(temperature_profile) +
+  geom_line(aes(time, temperature))
 ```
 The inactivation models based on the Weibull distribution are singular for $t=0$. For this reason, every value of time in `times` lower than the optional argument `tol0` is changed for `tol0`. By default, `tol0 = 1e-05`.
 
@@ -608,11 +614,12 @@ The Weibull-Mafart model is used in this example.
 simulation_model <- "Mafart"
 ```
 
-The temperature profile of the experiment is given by the data frame `temp_profile`, which provides the values of the temperature at discrete time points. Temperatures at time points not included in `temp_profile` are calculated by linear interpolation. The `dynamic_inactivation` data set includes the temperature of each observation. Hence, the temperature profile defined by this observations is used for the adjustment.
+The temperature profile of the experiment is given by the data frame `temp_profile`, which provides the values of the temperature at discrete time points. Temperatures at time points not included in `temp_profile` are calculated by linear interpolation. The `dynamic_inactivation` data set includes the temperature of each observation. Hence, the temperature profile defined by this observations is used for the adjustment. Note that the temperature profile is repeated three times in the dataset. In order to avoid warnings later in the calculations, only unique values are selected.
 
 ```{r}
 dummy_temp <- data.frame(time = dynamic_inactivation$time,
-                         temperature = dynamic_inactivation$temperature)
+                         temperature = dynamic_inactivation$temperature) %>%
+  distinct()
 ```
 Although the temperature profile defines several different values of temperature for each time value, only the one calculated by linear interpolation will be used for the resolution of the differential equation.
 
@@ -796,6 +803,6 @@ Geeraerd AH, Valdramidis V and Van Impe JF, (2005). GInaFiT, a freeware tool to 
 
 H. Wickham. (2009) ggplot2: elegant graphics for data analysis. Springer New York.
 
-Soetaert K., Petzoldt T., Setzer R.W. (2010).  Solving Differential Equations in R: Package deSolve. _Journal of Statistical Software_, 33(9), 1--25.  URL http://www.jstatsoft.org/v33/i09/.
+Soetaert K., Petzoldt T., Setzer R.W. (2010).  Solving Differential Equations in R: Package deSolve. _Journal of Statistical Software_, 33(9), 1--25.
 
-Soetaert K., Petzoldt T., Setzer R.W. (2010). Inverse Modelling, Sensitivity and Monte Carlo Analysis in R Using Package FME. _Journal of Statistical Software_, 33(3), 1-28. URL http://www.jstatsoft.org/v33/i03/.
+Soetaert K., Petzoldt T., Setzer R.W. (2010). Inverse Modelling, Sensitivity and Monte Carlo Analysis in R Using Package FME. _Journal of Statistical Software_, 33(3), 1-28.

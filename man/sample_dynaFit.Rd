@@ -19,12 +19,12 @@ to perform.}
 }
 \value{
 Returns a list with 4 components.
-        \itemize{
-             \item par_sample: data frame with the parameter sample.
-             \item simulation_model: model key for the simulation
-             \item known_pars: parameters of the model known
-             \item times: points where the calculation is made.
-             }
+\itemize{
+\item par_sample: data frame with the parameter sample.
+\item simulation_model: model key for the simulation
+\item known_pars: parameters of the model known
+\item times: points where the calculation is made.
+}
 }
 \description{
 Function to be called by \code{\link{predict_inactivation_MCMC}}. Produces
@@ -33,8 +33,8 @@ linear regression.
 }
 \details{
 It is assumed that the parameters follow a Multivariate Normal distribution
-with the mean the parameters estimated by \code{\link{modFit}}. The unscaled
-covariance matrix returned by \code{\link{modFit}} is used.
+with the mean the parameters estimated by \link[FME:modFit]{FME::modFit}. The unscaled
+covariance matrix returned by \link[FME:modFit]{FME::modFit} is used.
 
-The function produces a random sample using the function \code{\link{mvrnorm}}.
+The function produces a random sample.
 }

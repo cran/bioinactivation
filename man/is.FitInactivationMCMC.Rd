@@ -11,7 +11,7 @@ is.FitInactivationMCMC(x)
 }
 \value{
 A logic specifying whether \code{x} is of class
-        \code{FitInactivationMCMC}
+\code{FitInactivationMCMC}
 }
 \description{
 Tests if an object is of class \code{FitInactivationMCMC}.
